@@ -19,23 +19,23 @@
   <meta name="author" content="yvanyao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最长回文子串是动态规划中一道非常经典的题目 思路1、这道题是考察动态规划；2、首先，我们需要看到，它需要返回的是子串，而不是int类型的数值；3、其次，我们可以知道，dp [i][j]是否是回文子串起始取决于dp [i+1][j-1]；4、所以，我们通过两层for循环遍历，不断更新i和j的值，最后得到最长的回文子串；5、需要注意，这里i的遍历顺序是从下向上，而j的遍历顺序是从左到右； 代码1234">
+    <meta name="description" content="思路1、这道题是考察动态规划，特点是它可以通过优化，进一步降低空间复杂度；2、我们需要维护两个变量，一个是当前最大乘积数组，一个是当前最小乘积数组；3、然后在遍历过程中不断迭代更新，得到最终结果；4、特别需要注意中间出现的元素0，任何包含0的数组的乘积都是0，所以需要特殊处理； 代码123456789101112131415161718192021222324252627282930class S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最长回文子串">
-<meta property="og:url" content="http://yycsu.github.io/2024/11/03/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/index.html">
+<meta property="og:title" content="最大子数组和">
+<meta property="og:url" content="http://yycsu.github.io/2024/11/05/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/index.html">
 <meta property="og:site_name" content="yvanyao&#39;s personal blog">
-<meta property="og:description" content="最长回文子串是动态规划中一道非常经典的题目 思路1、这道题是考察动态规划；2、首先，我们需要看到，它需要返回的是子串，而不是int类型的数值；3、其次，我们可以知道，dp [i][j]是否是回文子串起始取决于dp [i+1][j-1]；4、所以，我们通过两层for循环遍历，不断更新i和j的值，最后得到最长的回文子串；5、需要注意，这里i的遍历顺序是从下向上，而j的遍历顺序是从左到右； 代码1234">
+<meta property="og:description" content="思路1、这道题是考察动态规划，特点是它可以通过优化，进一步降低空间复杂度；2、我们需要维护两个变量，一个是当前最大乘积数组，一个是当前最小乘积数组；3、然后在遍历过程中不断迭代更新，得到最终结果；4、特别需要注意中间出现的元素0，任何包含0的数组的乘积都是0，所以需要特殊处理； 代码123456789101112131415161718192021222324252627282930class S">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yycsu.github.io/img/%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2.jpeg">
-<meta property="article:published_time" content="2024-11-03T13:31:00.000Z">
-<meta property="article:modified_time" content="2024-11-05T14:28:51.554Z">
+<meta property="og:image" content="http://yycsu.github.io/img/%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E6%95%B0%E7%BB%84.jpeg">
+<meta property="article:published_time" content="2024-11-05T14:25:00.000Z">
+<meta property="article:modified_time" content="2024-11-05T14:26:37.623Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yycsu.github.io/img/%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2.jpeg">
+<meta name="twitter:image" content="http://yycsu.github.io/img/%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E6%95%B0%E7%BB%84.jpeg">
   
   
   
-  <title>最长回文子串 - yvanyao&#39;s personal blog</title>
+  <title>最大子数组和 - yvanyao&#39;s personal blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="最长回文子串"></span>
+            <span id="subtitle" data-typed-text="最大子数组和"></span>
           
         </div>
 
@@ -216,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-03 21:31" pubdate>
-          2024年11月3日 晚上
+        <time datetime="2024-11-05 22:25" pubdate>
+          2024年11月5日 晚上
         </time>
       </span>
     
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          433 字
+          422 字
         
       </span>
     
@@ -276,17 +276,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">最长回文子串</h1>
+            <h1 id="seo-header">最大子数组和</h1>
             
             
               <div class="markdown-body">
                 
-                <p>最长回文子串是动态规划中一道非常经典的题目</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1、这道题是考察动态规划；<br>2、首先，我们需要看到，它需要返回的是子串，而不是int类型的数值；<br>3、其次，我们可以知道，dp [i][j]是否是回文子串起始取决于dp [i+1][j-1]；<br>4、所以，我们通过两层for循环遍历，不断更新i和j的值，最后得到最长的回文子串；<br>5、需要注意，这里i的遍历顺序是从下向上，而j的遍历顺序是从左到右；</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 1、使用动态规划的方法，dp[i][j]表示分别以i为起点和j为终点的子串是否为回文子串</span><br>    <span class="hljs-comment">// 2、当s[i] == s[j]时，才需要判断，这时如果j - i &lt;= 1，显然就是回文子串，否则需要判断dp[i+1][j-1]是否是回文子串；</span><br>    <span class="hljs-comment">// 3、显然，我们可以看出i是从下向上遍历，而j是从左向右遍历</span><br>    <span class="hljs-comment">// 4、最后，遍历的过程中，我们可以不断迭代left和right的位置，最终得到最长子串</span><br>    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        vector&lt;vector&lt;<span class="hljs-type">bool</span>&gt;&gt; <span class="hljs-built_in">dp</span>(s.<span class="hljs-built_in">size</span>(), <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">bool</span>&gt;(s.<span class="hljs-built_in">size</span>(), <span class="hljs-literal">false</span>));<br>        <span class="hljs-type">int</span> max_length = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-type">int</span> left = INT_MAX;<br>        <span class="hljs-type">int</span> right = INT_MIN;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = s.<span class="hljs-built_in">size</span>() <span class="hljs-number">-1</span>; i &gt;= <span class="hljs-number">0</span>; i--)&#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; s.<span class="hljs-built_in">size</span>(); j++)&#123;<br>                <span class="hljs-keyword">if</span> (s[i] == s[j])&#123;<br>                    <span class="hljs-keyword">if</span> (j - i &lt;= <span class="hljs-number">1</span> || dp[i<span class="hljs-number">+1</span>][j<span class="hljs-number">-1</span>])&#123;<br>                        dp[i][j] = <span class="hljs-literal">true</span>;<br><br>                        <span class="hljs-keyword">if</span> (j - i + <span class="hljs-number">1</span> &gt; max_length)&#123;<br>                            left = i;<br>                            right = j;<br>                            max_length = j - i + <span class="hljs-number">1</span>;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> s.<span class="hljs-built_in">substr</span>(left, max_length);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+                <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1、这道题是考察动态规划，特点是它可以通过优化，进一步降低空间复杂度；<br>2、我们需要维护两个变量，一个是当前最大乘积数组，一个是当前最小乘积数组；<br>3、然后在遍历过程中不断迭代更新，得到最终结果；<br>4、特别需要注意中间出现的元素0，任何包含0的数组的乘积都是0，所以需要特殊处理；</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 1、按照第53题的思路，假设f(i)表示以i结尾的最大乘积可以考虑a和f(i-1)也可以单独成一段，即f(i) = max(f(i-1) * a, a)；</span><br>    <span class="hljs-comment">// 2、但是这里有点特别，我们可以有负数，所以我们维护一个以i结尾的最小乘积、最大乘积；</span><br>    <span class="hljs-comment">// 3、这样，我们就可以每次从三者中选择出新的最小乘积、最大乘积</span><br>    <span class="hljs-comment">// 4、另外，如果我们遇到nums[i] = 0的特殊情况，需要将curMin和curMax都置1，且result用0进行截断，因为连续数组中只要包含0，乘积就是0</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProduct</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> curMin = <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> curMax = <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> result = INT_MIN;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i++)&#123;<br>            <span class="hljs-keyword">if</span> (nums[i] == <span class="hljs-number">0</span>)&#123;<br>                curMax = <span class="hljs-number">1</span>;<br>                curMin = <span class="hljs-number">1</span>;<br>                result = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, result);<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br><br>            <span class="hljs-type">int</span> temp = nums[i] * curMax;<br><br>            curMax = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">max</span>(temp, curMin * nums[i]), nums[i]);<br>            curMin = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">min</span>(temp, curMin * nums[i]), nums[i]);<br><br>            result = <span class="hljs-built_in">max</span>(curMax, result);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>这里，我们遍历两遍，时间复杂度是o(n^2)。</p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>二维动态数组，显然空间复杂度也是o(n^2)。</p>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>程序一次循环遍历了nums，所以渐进时间复杂度为O(n)。</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>优化后，只使用了常数个临时变量作为辅助空间，与n无关，故渐进空间复杂度为O(1)。</p>
 
                 
               </div>
@@ -325,8 +324,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>最长回文子串</div>
-      <div>http://yycsu.github.io/2024/11/03/最长回文子串/</div>
+      <div>最大子数组和</div>
+      <div>http://yycsu.github.io/2024/11/05/最大子数组和/</div>
     </div>
     <div class="license-meta">
       
@@ -338,7 +337,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月3日</div>
+          <div>2024年11月5日</div>
         </div>
       
       
@@ -370,18 +369,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/03/%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/" title="单词拆分">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">单词拆分</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/03/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2024/11/05/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" title="下一个排列">
+                        <span class="hidden-mobile">下一个排列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
