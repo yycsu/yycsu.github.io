@@ -232,7 +232,7 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/11/05/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" target="_self">
-          <img src="/img/%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E6%95%B0%E7%BB%84.jpeg" srcset="/img/loading.gif" lazyload alt="最大子数组和">
+          <img src="/img/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C.png" srcset="/img/loading.gif" lazyload alt="最大子数组和">
         </a>
       </div>
     
@@ -247,7 +247,7 @@
       
       <a class="index-excerpt " href="/2024/11/05/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C/" target="_self">
         <div>
-          思路 这道题是考察动态规划，特点是它可以通过优化，进一步降低空间复杂度； 我们需要维护两个变量，一个是当前最大乘积数组，一个是当前最小乘积数组； 然后在遍历过程中不断迭代更新，得到最终结果； 特别需要注意中间出现的元素0，任何包含0的数组的乘积都是0，所以需要特殊处理；  代码123456789101112131415161718192021222324252627282930class Solu
+          思路 这道题是考察动态规划，我们用两个变量分别记录以当前数值结尾的最大子数组f(i)和以及最终结果； 我们在遍历的过程中，不断判断f(i-1)+nums[i]与nums[i]的大小，迭代f(i)； 同时，判断f(i)与result的大小，从而更新result； 最终，就得到了全局最大值；  代码1234567891011121314class Solution &#123;public:    i
         </div>
       </a>
 
