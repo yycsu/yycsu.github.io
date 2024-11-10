@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>合并两个有序数组</title>
+    <link href="/2024/11/10/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/"/>
+    <url>/2024/11/10/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
+    
+    <content type="html"><![CDATA[<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul><li>这道题是考察双指针，同时需要逆向思维；</li><li>从后面向前，但是要特别注意，我们从后向前是需要从大到小的获取数值。</li></ul><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 这道题，首先很明确的是使用双指针来做，其次，它的关键在于使用逆向双指针</span><br>    <span class="hljs-comment">// 1、具体来说，由于nums1中包含了m+n个元素，所以我们从后先前不会覆盖原来nums1中已有的数值</span><br>    <span class="hljs-comment">// 2、如果一个数组遍历完了，应该用另外一个补充</span><br>    <span class="hljs-comment">// 3、最终我们会将所有数值都加入到数组1</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, <span class="hljs-type">int</span> m, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-type">int</span> first = m<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> second = n<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> tail = m + n <span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> cur;<br><br>        <span class="hljs-comment">//只有当两个数组还有1个没有遍历完成，可以继续遍历</span><br>        <span class="hljs-keyword">while</span>(first &gt;= <span class="hljs-number">0</span> || second &gt;= <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">if</span> (first == <span class="hljs-number">-1</span>)&#123;<br>                cur = nums2[second];<br>                second--;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (second == <span class="hljs-number">-1</span>)&#123;<br>                cur = nums1[first];<br>                first--;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[first] &gt; nums2[second])&#123;<br>                cur = nums1[first];<br>                first--;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                cur = nums2[second];<br>                second--;<br>            &#125;<br><br>            nums1[tail] = cur;<br>            tail--;<br>        &#125;<br><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul><li>程序遍历了一遍两个数组，所以渐进时间复杂度为O(m+n)。</li></ul><h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul><li>只有几个临时变量，所以空间复杂度为o(1)。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>有效三角形的个数</title>
     <link href="/2024/11/07/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/"/>
     <url>/2024/11/07/%E6%9C%89%E6%95%88%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E4%B8%AA%E6%95%B0/</url>
