@@ -231,6 +231,66 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/11/12/%E4%B8%A4%E4%B8%AA%E9%9D%9E%E9%87%8D%E5%8F%A0%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" target="_self">
+          <img src="/img/%E4%B8%A4%E4%B8%AA%E9%9D%9E%E9%87%8D%E5%8F%A0%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C.png" srcset="/img/loading.gif" lazyload alt="两个非重叠子数组的最大和">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/11/12/%E4%B8%A4%E4%B8%AA%E9%9D%9E%E9%87%8D%E5%8F%A0%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" target="_self">
+          两个非重叠子数组的最大和
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/11/12/%E4%B8%A4%E4%B8%AA%E9%9D%9E%E9%87%8D%E5%8F%A0%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" target="_self">
+        <div>
+          思路 使用到了前缀和滑动窗口的概念 1、首先，如果整个窗口长度比firstLen+secondLen要小，显然没有结果 2、其次，我们从firstLen+secondLen-1的索引处开始遍历 3、每次，我们可以固定末尾向前倒数firstLen或者secondLen的数，然后在剩下的区间内寻找最大的子数组和 4、最后，将两种不同选择方式（firstLen在前和secondLen两种）的最大和与当前
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-12 00:35" pubdate>
+              2024-11-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/leetcode-analysis/" class="category-chain-item">leetcode</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/11/11/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9F%A9%E9%98%B5/" target="_self">
           <img src="/img/%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E9%98%B5.jpg" srcset="/img/loading.gif" lazyload alt="柱状图中最大的矩阵">
         </a>
@@ -737,66 +797,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2024-11-04 23:47" pubdate>
               2024-11-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/leetcode-analysis/" class="category-chain-item">leetcode</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/11/03/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" target="_self">
-          <img src="/img/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2.jpeg" srcset="/img/loading.gif" lazyload alt="最大正方形">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/11/03/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" target="_self">
-          最大正方形
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/11/03/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" target="_self">
-        <div>
-          思路 这道题是考察动态规划，当前元素由左上，左和上三个位置的元素推导得出； 假设dp [i][j]表示的是以i,j坐标为右下角，且只包含1的正方形的边长最大值； 具体思路如下： 首先，我们可以通过两层遍历，完成所有位置的计算； 其次，我们只需要考虑nums [j] &#x3D;&#x3D; 1的情况，因为如果等于0，显然dp [i][j]会等于0； 当我们的i或者j有一个为0时，dp [i][j]
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-03 23:49" pubdate>
-              2024-11-03
             </time>
           </div>
         
