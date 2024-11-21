@@ -23,6 +23,25 @@
   
   
   <entry>
+    <title>在排序数组中查询元素的第一个和最后一个位置</title>
+    <link href="/2024/11/21/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"/>
+    <url>/2024/11/21/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul><li>这道题考察数组和二分法；</li><li>1、我们需要分别找到不包含target的左边界，不包含target的右边界；</li><li>2、如果左右边界之间还有元素，说明找到了；</li><li>3、否则，说明数组中不存在元素，返回{-1,-1}</li></ul><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>class Solution {<br>public:<br>    vector<int> searchRange(vector<int>&amp; nums, int target) {<br>        int leftBoard &#x3D; getLeftBoard(nums, target);<br>        int rightBoard &#x3D; getRightBoard(nums, target);</p><pre><code class="hljs">    if (rightBoard - leftBoard &gt; 1)&#123;        return &#123;leftBoard + 1, rightBoard -1&#125;;    &#125;    return &#123;-1, -1&#125;;&#125;int getLeftBoard(vector&lt;int&gt;&amp; nums, int target)&#123;    int left = 0;    int right = nums.size() -1;    while(left &lt;= right)&#123;        int middle = left + (right - left) / 2;        if (nums[middle] &gt;= target)&#123;            right = middle-1;        &#125;else&#123;            left = middle+1;        &#125;    &#125;    return right;&#125;int getRightBoard(vector&lt;int&gt;&amp; nums, int target)&#123;    int left = 0;    int right = nums.size() -1;    while(left &lt;= right)&#123;        int middle = left + (right - left) / 2;        if (nums[middle] &lt;= target)&#123;            left = middle+1;        &#125;else&#123;            right = middle-1;        &#125;    &#125;    return left;&#125;</code></pre><p>};</p><pre><code class="hljs">### 时间复杂度+ 每次是进行了二分，左右边界各做了一次，所以时间复杂度为o(logn)。### 空间复杂度+ 我们空间应该只用到了常数个，所以空间复杂度为o(1)。</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>心情记录</title>
     <link href="/2024/11/21/%E5%BF%83%E6%83%85%E8%AE%B0%E5%BD%95/"/>
     <url>/2024/11/21/%E5%BF%83%E6%83%85%E8%AE%B0%E5%BD%95/</url>
