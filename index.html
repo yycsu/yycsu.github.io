@@ -307,7 +307,7 @@
       
       <a class="index-excerpt " href="/2024/11/21/k%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/" target="_self">
         <div>
-          思路 这道题首先，实际上可以拆解成翻转链表和递归函数； 1、首先，head是翻转后的尾节点，pre是翻转后的头节点，cur是翻转后的尾节点的下一个节点； 2、其次，我们需要将翻转后的尾节点于下一个头节点连接； 3、这里，仍然需要注意的是如果长度不足，不用翻转，所以每次需要判断一下 4、如果不足k的也需要翻转，那么将return head改成break即可。  代码class Solution {p
+          思路 这道题首先，实际上可以拆解成翻转链表和递归函数； 1、首先，head是翻转后的尾节点，pre是翻转后的头节点，cur是翻转后的尾节点的下一个节点； 2、其次，我们需要将翻转后的尾节点于下一个头节点连接； 3、这里，仍然需要注意的是如果长度不足，不用翻转，所以每次需要判断一下 4、如果不足k的也需要翻转，那么将return head改成break即可。  代码12345678910111213
         </div>
       </a>
 
@@ -367,7 +367,7 @@
       
       <a class="index-excerpt " href="/2024/11/21/%E8%9E%BA%E6%97%8B%E9%81%8D%E5%8E%86%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/" target="_self">
         <div>
-          思路 1、考察的实际上是对数组的操作熟练程度，由于需要螺旋打印，所以不好用row（圈数）来控制，而是要用上下左右的边界控制； 2、注意每次打印时候的边界控制；  代码class Solution {public:    vector spiralArray(vector&lt;vector&gt;&amp; array) {        vector result;     if (array.
+          思路 1、考察的实际上是对数组的操作熟练程度，由于需要螺旋打印，所以不好用row（圈数）来控制，而是要用上下左右的边界控制； 2、注意每次打印时候的边界控制；  代码1234567891011121314151617181920212223242526272829303132333435363738394041class Solution &#123;public:    vector&lt;in
         </div>
       </a>
 
@@ -487,7 +487,7 @@
       
       <a class="index-excerpt " href="/2024/11/21/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" target="_self">
         <div>
-          思路 使用贪心算法，左右指针不断移动，每次移动短的边，因为移动长边必然导致容积减小；  代码class Solution {public:    int maxArea(vector&amp; height) {        int result &#x3D; 0;     int left = 0;     int right = height.size() -1;      while(le
+          思路 使用贪心算法，左右指针不断移动，每次移动短的边，因为移动长边必然导致容积减小；  代码123456789101112131415161718192021class Solution &#123;public:    int maxArea(vector&lt;int&gt;&amp; height) &#123;        int result = 0;        int left
         </div>
       </a>
 
@@ -547,7 +547,7 @@
       
       <a class="index-excerpt " href="/2024/11/21/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E8%AF%A2%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/" target="_self">
         <div>
-          思路 这道题考察数组和二分法； 1、我们需要分别找到不包含target的左边界，不包含target的右边界； 2、如果左右边界之间还有元素，说明找到了； 3、否则，说明数组中不存在元素，返回{-1,-1}  代码class Solution {public:    vector searchRange(vector&amp; nums, int target) {        int leftB
+          思路 这道题考察数组和二分法； 1、我们需要分别找到不包含target的左边界，不包含target的右边界； 2、如果左右边界之间还有元素，说明找到了； 3、否则，说明数组中不存在元素，返回{-1,-1}  代码123456789101112131415161718192021222324252627282930313233343536373839404142434445class Solutio
         </div>
       </a>
 
@@ -667,7 +667,7 @@
       
       <a class="index-excerpt " href="/2024/11/19/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/" target="_self">
         <div>
-          思路 这道题居然是一道动态规划的题目 1、我们初始化一个二维数组，dp[i][j]，含义是到下标为(i,j)位置一共有dp[i][j]种走法； 2、首先，dp[i][0]和dp[0][j]显然都为1，因为只有一种走法； 3、其次，递推公式是dp[i][j] &#x3D; dp[i-1][j] + dp[i][j-1]; 4、最后，我们从上到下，从左到右遍历即可  代码class Solution
+          思路 这道题居然是一道动态规划的题目 1、我们初始化一个二维数组，dp[i][j]，含义是到下标为(i,j)位置一共有dp[i][j]种走法； 2、首先，dp[i][0]和dp[0][j]显然都为1，因为只有一种走法； 3、其次，递推公式是dp[i][j] &#x3D; dp[i-1][j] + dp[i][j-1]; 4、最后，我们从上到下，从左到右遍历即可  代码123456789101112
         </div>
       </a>
 
