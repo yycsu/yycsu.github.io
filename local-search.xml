@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>寻找重复数</title>
+    <link href="/2024/11/21/%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/"/>
+    <url>/2024/11/21/%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul><li>方案一：思路是将某个位置的元素当作下标，将该下标的元素置为负数，当遇到负数的时候，我们就知道该下标即为重复数字；</li><li>方案二：思路是快慢指针，因为while True, point &#x3D; nums[point]，这样如果存在重复数值，就会形成环，那么就类似于快慢指针的问题了，就可以使用环的方法求解。</li></ul><h3 id="代码（方案一）"><a href="#代码（方案一）" class="headerlink" title="代码（方案一）"></a>代码（方案一）</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>public:<br>    <span class="hljs-keyword">int</span> findDuplicate(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.size(); i++)&#123;<br>            <span class="hljs-keyword">int</span> val = <span class="hljs-keyword">abs</span>(nums[i]);<br><br>            <span class="hljs-keyword">if</span> (nums[val] &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> val;<br><br>            nums[val] = -<span class="hljs-number">1</span> * nums[val];<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><h3 id="代码（方案二）"><a href="#代码（方案二）" class="headerlink" title="代码（方案二）"></a>代码（方案二）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-type">int</span> fast = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> slow = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>            fast = nums[nums[fast]];<br>            slow = nums[slow];<br>            <span class="hljs-keyword">if</span> (fast == slow)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-type">int</span> finder = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>            finder = nums[finder];<br>            slow = nums[slow];<br>            <span class="hljs-keyword">if</span> (slow==finder)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> finder;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul><li>两种方案的时间复杂度都为o(n)。</li></ul><h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul><li>两种方案的空间复杂度都为o(1)。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>leetcode</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>盛最多水的容器</title>
     <link href="/2024/11/21/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"/>
     <url>/2024/11/21/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/</url>
