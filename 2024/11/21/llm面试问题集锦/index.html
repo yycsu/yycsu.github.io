@@ -19,23 +19,23 @@
   <meta name="author" content="yvanyao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="思路 这道题是在层序遍历的基础上的一个变形，我们需要在每一个节点多存一个index(顺序位置)； 然后，我们在遍历每一行的时候，会记录行首和行尾，用两者相减再加一就是当前行的宽度； 遍历完所有行，就可以得到最终结果  代码123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * Definiti">
+    <meta name="description" content="1、常见微调方法LORA和Ptuning的原理 LORA 思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；   bitfit 思路：bitfit是只训练模型参数的bias部分；   p-tuning 思路：p-tuning方法和核心是使用可微的virtual token替换原来的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二叉树最大宽度">
-<meta property="og:url" content="http://yycsu.github.io/2024/11/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6/index.html">
+<meta property="og:title" content="LLM面试问题集锦">
+<meta property="og:url" content="http://yycsu.github.io/2024/11/21/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/index.html">
 <meta property="og:site_name" content="yvanyao&#39;s personal blog">
-<meta property="og:description" content="思路 这道题是在层序遍历的基础上的一个变形，我们需要在每一个节点多存一个index(顺序位置)； 然后，我们在遍历每一行的时候，会记录行首和行尾，用两者相减再加一就是当前行的宽度； 遍历完所有行，就可以得到最终结果  代码123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * Definiti">
+<meta property="og:description" content="1、常见微调方法LORA和Ptuning的原理 LORA 思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；   bitfit 思路：bitfit是只训练模型参数的bias部分；   p-tuning 思路：p-tuning方法和核心是使用可微的virtual token替换原来的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yycsu.github.io/img/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6.jpg">
-<meta property="article:published_time" content="2024-11-24T09:39:00.000Z">
-<meta property="article:modified_time" content="2024-11-24T12:31:57.333Z">
+<meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
+<meta property="article:published_time" content="2024-11-21T09:01:00.000Z">
+<meta property="article:modified_time" content="2024-11-24T13:52:00.833Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yycsu.github.io/img/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6.jpg">
+<meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
   
   
   
-  <title>二叉树最大宽度 - yvanyao&#39;s personal blog</title>
+  <title>LLM面试问题集锦 - yvanyao&#39;s personal blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="二叉树最大宽度"></span>
+            <span id="subtitle" data-typed-text="LLM面试问题集锦"></span>
           
         </div>
 
@@ -216,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-24 17:39" pubdate>
-          2024年11月24日 下午
+        <time datetime="2024-11-21 17:01" pubdate>
+          2024年11月21日 下午
         </time>
       </span>
     
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          269 字
+          355 字
         
       </span>
     
@@ -276,23 +276,41 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">二叉树最大宽度</h1>
+            <h1 id="seo-header">LLM面试问题集锦</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
-<li>这道题是在层序遍历的基础上的一个变形，我们需要在每一个节点多存一个index(顺序位置)；</li>
-<li>然后，我们在遍历每一行的时候，会记录行首和行尾，用两者相减再加一就是当前行的宽度；</li>
-<li>遍历完所有行，就可以得到最终结果</li>
+                <h3 id="1、常见微调方法LORA和Ptuning的原理"><a href="#1、常见微调方法LORA和Ptuning的原理" class="headerlink" title="1、常见微调方法LORA和Ptuning的原理"></a>1、常见微调方法LORA和Ptuning的原理</h3><ul>
+<li>LORA<ul>
+<li>思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；</li>
 </ul>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * struct TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode *left;</span><br><span class="hljs-comment"> *     TreeNode *right;</span><br><span class="hljs-comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span><br><span class="hljs-comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span><br><span class="hljs-comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">widthOfBinaryTree</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        deque&lt;pair&lt;TreeNode*, <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> &gt;&gt; dq;<br>        dq.<span class="hljs-built_in">push_back</span>(&#123;root, <span class="hljs-number">1</span>&#125;);<br>        <span class="hljs-type">int</span> result;<br><br>        <span class="hljs-keyword">while</span>(!dq.<span class="hljs-built_in">empty</span>())&#123;<br>            <span class="hljs-type">int</span> size = dq.<span class="hljs-built_in">size</span>();<br>            <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> left = dq.<span class="hljs-built_in">front</span>().second;<br>            <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> right;<br><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;i &lt; size; i++)&#123;<br>                <span class="hljs-keyword">auto</span> item = dq.<span class="hljs-built_in">front</span>();<br>                dq.<span class="hljs-built_in">pop_front</span>();<br>                TreeNode* node = item.first;<br>                <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> index = item.second;<br><br>                <span class="hljs-keyword">if</span> (node-&gt;left) dq.<span class="hljs-built_in">push_back</span>(&#123;node-&gt;left, <span class="hljs-number">2</span> * index&#125;);<br>                <span class="hljs-keyword">if</span> (node-&gt;right) dq.<span class="hljs-built_in">push_back</span>(&#123;node-&gt;right, <span class="hljs-number">2</span> * index + <span class="hljs-number">1</span>&#125;);<br><br>                right = index;<br>            &#125;<br><br>            result = <span class="hljs-built_in">max</span>(result, <span class="hljs-built_in">int</span>(right - left + <span class="hljs-number">1</span>));<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul>
-<li>时间复杂度显然就是o(n)。</li>
+</li>
+<li>bitfit<ul>
+<li>思路：bitfit是只训练模型参数的bias部分；</li>
 </ul>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul>
-<li>空间复杂度是o(H)，其中H是树的高度。</li>
+</li>
+<li>p-tuning<ul>
+<li>思路：p-tuning方法和核心是使用可微的virtual token替换原来的discrete tokens，仅加入到输入层，病使用(BiLSTM+MLP)对virtual token进行编码学习；</li>
+<li>prompt tuning（hard prompt tuninig和soft prompt tuning两种）<ul>
+<li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断&#x2F;复制等操作，然后对这部分embedding进行训练；</li>
+<li>soft prompt则会在输入前面加一个random初始化的embedding（可以指定num_virtual_tokens），然后进行训练；</li>
+</ul>
+</li>
+<li>P-tuning v1<ul>
+<li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm&#x2F;mlp层，加速收敛；</li>
+</ul>
+</li>
+<li>Prefix tuning<ul>
+<li>在transformer Block里面，每一层都添加一个embedding（past_key_values），具体来说，由于transformer这种only-decode的模型，每次存在大量的重复计算，所以本来就有一个kv_cache的方法减小计算量，增加推理速度，那么我们的prifix_tuninig就是在每一层中以past_key_values的方式将prefix_embedding加进去了；</li>
+</ul>
+</li>
+<li>P-tuning v2<ul>
+<li>在prefix tuning的基础上，添加了一个lstm&#x2F;mlp层，最后也是分发到kv_cache上面；</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -312,7 +330,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/leetcode-%E6%A0%91/" class="category-chain-item">leetcode-树</a>
+  <a href="/categories/llm/" class="category-chain-item">llm</a>
   
   
 
@@ -332,8 +350,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>二叉树最大宽度</div>
-      <div>http://yycsu.github.io/2024/11/24/二叉树最大宽度/</div>
+      <div>LLM面试问题集锦</div>
+      <div>http://yycsu.github.io/2024/11/21/llm面试问题集锦/</div>
     </div>
     <div class="license-meta">
       
@@ -345,7 +363,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月24日</div>
+          <div>2024年11月21日</div>
         </div>
       
       
@@ -377,12 +395,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2024/11/21/k%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="k个一组翻转链表">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">k个一组翻转链表</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" title="二叉树的中序遍历">
-                        <span class="hidden-mobile">二叉树的中序遍历</span>
+                      <a href="/2024/11/21/%E8%9E%BA%E6%97%8B%E9%81%8D%E5%8E%86%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/" title="螺旋遍历二维数组">
+                        <span class="hidden-mobile">螺旋遍历二维数组</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
