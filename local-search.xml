@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>LLM面试问题集锦</title>
+    <link href="/2024/11/24/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/"/>
+    <url>/2024/11/24/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/</url>
+    
+    <content type="html"><![CDATA[<h3 id="1、常见微调方法LORA和Ptuning的原理"><a href="#1、常见微调方法LORA和Ptuning的原理" class="headerlink" title="1、常见微调方法LORA和Ptuning的原理"></a>1、常见微调方法LORA和Ptuning的原理</h3><ul><li>LORA<ul><li>思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；</li></ul></li><li>bitfit<ul><li>思路：bitfit是只训练模型参数的bias部分；</li></ul></li><li>p-tuning<ul><li>思路：p-tuning方法和核心是使用可微的virtual token替换原来的discrete tokens，仅加入到输入层，病使用(BiLSTM+MLP)对virtual token进行编码学习；</li><li>prompt tuning（hard prompt tuninig和soft prompt tuning两种）<ul><li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断&#x2F;复制等操作，然后对这部分embedding进行训练；</li><li>soft prompt则会在输入前面加一个random初始化的embedding（可以指定num_virtual_tokens），然后进行训练；</li></ul></li><li>P-tuning v1<ul><li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm&#x2F;mlp层，加速收敛；</li></ul></li><li>Prefix tuning<ul><li>在transformer Block里面，每一层都添加一个embedding（past_key_values），具体来说，由于transformer这种only-decode的模型，每次存在大量的重复计算，所以本来就有一个kv_cache的方法减小计算量，增加推理速度，那么我们的prifix_tuninig就是在每一层中以past_key_values的方式将prefix_embedding加进去了；</li></ul></li><li>P-tuning v2<ul><li>在prefix tuning的基础上，添加了一个lstm&#x2F;mlp层，最后也是分发到kv_cache上面；</li></ul></li></ul></li></ul><h3 id="2、介绍一下stable-diffusion"><a href="#2、介绍一下stable-diffusion" class="headerlink" title="2、介绍一下stable diffusion"></a>2、介绍一下stable diffusion</h3><ul><li>首先，这里有一个<a href="https://jalammar.github.io/illustrated-stable-diffusion/">大佬的文章</a>，包含youtube的视频;</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>llm</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>二叉树最大宽度</title>
     <link href="/2024/11/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6/"/>
     <url>/2024/11/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6/</url>
@@ -242,25 +261,6 @@
     <categories>
       
       <category>leetcode-链表</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>LLM面试问题集锦</title>
-    <link href="/2024/11/21/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/"/>
-    <url>/2024/11/21/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/</url>
-    
-    <content type="html"><![CDATA[<h3 id="1、常见微调方法LORA和Ptuning的原理"><a href="#1、常见微调方法LORA和Ptuning的原理" class="headerlink" title="1、常见微调方法LORA和Ptuning的原理"></a>1、常见微调方法LORA和Ptuning的原理</h3><ul><li>LORA<ul><li>思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；</li></ul></li><li>bitfit<ul><li>思路：bitfit是只训练模型参数的bias部分；</li></ul></li><li>p-tuning<ul><li>思路：p-tuning方法和核心是使用可微的virtual token替换原来的discrete tokens，仅加入到输入层，病使用(BiLSTM+MLP)对virtual token进行编码学习；</li><li>prompt tuning（hard prompt tuninig和soft prompt tuning两种）<ul><li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断&#x2F;复制等操作，然后对这部分embedding进行训练；</li><li>soft prompt则会在输入前面加一个random初始化的embedding（可以指定num_virtual_tokens），然后进行训练；</li></ul></li><li>P-tuning v1<ul><li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm&#x2F;mlp层，加速收敛；</li></ul></li><li>Prefix tuning<ul><li>在transformer Block里面，每一层都添加一个embedding（past_key_values），具体来说，由于transformer这种only-decode的模型，每次存在大量的重复计算，所以本来就有一个kv_cache的方法减小计算量，增加推理速度，那么我们的prifix_tuninig就是在每一层中以past_key_values的方式将prefix_embedding加进去了；</li></ul></li><li>P-tuning v2<ul><li>在prefix tuning的基础上，添加了一个lstm&#x2F;mlp层，最后也是分发到kv_cache上面；</li></ul></li></ul></li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>llm</category>
       
     </categories>
     
