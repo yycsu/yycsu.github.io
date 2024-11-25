@@ -19,23 +19,23 @@
   <meta name="author" content="yvanyao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1、常见微调方法LORA和Ptuning的原理 LORA 思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；   bitfit 思路：bitfit是只训练模型参数的bias部分；   p-tuning 思路：p-tuning方法和核心是使用可微的virtual token替换原来的">
+    <meta name="description" content="思路 这里的序列化和反序列化应该是如下操作： 1、序列化，我们将树拆分成字符串，不同节点之间用#分隔开； 2、反序列化第一步，我们先将字符串转换成一个list dataArray； 3、我们用一个listdataArray重新生成一棵树； Encodes a tree to a single string.  代码123456789101112131415161718192021222324252">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LLM面试问题集锦">
-<meta property="og:url" content="http://yycsu.github.io/2024/11/24/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/index.html">
+<meta property="og:title" content="二叉树的序列化和反序列化">
+<meta property="og:url" content="http://yycsu.github.io/2024/11/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
 <meta property="og:site_name" content="yvanyao&#39;s personal blog">
-<meta property="og:description" content="1、常见微调方法LORA和Ptuning的原理 LORA 思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；   bitfit 思路：bitfit是只训练模型参数的bias部分；   p-tuning 思路：p-tuning方法和核心是使用可微的virtual token替换原来的">
+<meta property="og:description" content="思路 这里的序列化和反序列化应该是如下操作： 1、序列化，我们将树拆分成字符串，不同节点之间用#分隔开； 2、反序列化第一步，我们先将字符串转换成一个list dataArray； 3、我们用一个listdataArray重新生成一棵树； Encodes a tree to a single string.  代码123456789101112131415161718192021222324252">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
-<meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-24T13:59:42.989Z">
+<meta property="og:image" content="http://yycsu.github.io/img/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.png">
+<meta property="article:published_time" content="2024-11-25T01:56:00.000Z">
+<meta property="article:modified_time" content="2024-11-25T01:59:11.519Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
+<meta name="twitter:image" content="http://yycsu.github.io/img/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.png">
   
   
   
-  <title>LLM面试问题集锦 - yvanyao&#39;s personal blog</title>
+  <title>二叉树的序列化和反序列化 - yvanyao&#39;s personal blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LLM面试问题集锦"></span>
+            <span id="subtitle" data-typed-text="二叉树的序列化和反序列化"></span>
           
         </div>
 
@@ -216,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-24 21:59" pubdate>
-          2024年11月24日 晚上
+        <time datetime="2024-11-25 09:56" pubdate>
+          2024年11月25日 上午
         </time>
       </span>
     
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          379 字
+          322 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          4 分钟
+          3 分钟
         
       </span>
     
@@ -276,44 +276,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">LLM面试问题集锦</h1>
+            <h1 id="seo-header">二叉树的序列化和反序列化</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="1、常见微调方法LORA和Ptuning的原理"><a href="#1、常见微调方法LORA和Ptuning的原理" class="headerlink" title="1、常见微调方法LORA和Ptuning的原理"></a>1、常见微调方法LORA和Ptuning的原理</h3><ul>
-<li>LORA<ul>
-<li>思路：lora方法的核心是在大语言模型上对指定参数增加额外的低秩矩阵，在原始PLM（pretrain language model）旁边增加一个旁路，只训练旁路的参数；</li>
+                <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li>这里的序列化和反序列化应该是如下操作：</li>
+<li>1、序列化，我们将树拆分成字符串，不同节点之间用#分隔开；</li>
+<li>2、反序列化第一步，我们先将字符串转换成一个list<string> dataArray；</li>
+<li>3、我们用一个list<string>dataArray重新生成一棵树；</li>
+<li>Encodes a tree to a single string.</li>
 </ul>
-</li>
-<li>bitfit<ul>
-<li>思路：bitfit是只训练模型参数的bias部分；</li>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * struct TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode *left;</span><br><span class="hljs-comment"> *     TreeNode *right;</span><br><span class="hljs-comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Codec</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 将树转换成string</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">rserialize</span><span class="hljs-params">(TreeNode* root, string&amp; s)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (root == <span class="hljs-literal">nullptr</span>)&#123;<br>            s += <span class="hljs-string">&quot;None#&quot;</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            s += <span class="hljs-built_in">to_string</span>(root-&gt;val) + <span class="hljs-string">&quot;#&quot;</span>;<br>            <span class="hljs-built_in">rserialize</span>(root-&gt;left, s);<br>            <span class="hljs-built_in">rserialize</span>(root-&gt;right, s);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function">string <span class="hljs-title">serialize</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        string s;<br>        <span class="hljs-built_in">rserialize</span>(root, s);<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br><br>    <span class="hljs-comment">// 用list&lt;string&gt;重新生成一棵树</span><br>    <span class="hljs-function">TreeNode* <span class="hljs-title">rdeserialize</span><span class="hljs-params">(list&lt;string&gt;&amp; dataArray)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (dataArray.<span class="hljs-built_in">front</span>() == <span class="hljs-string">&quot;None&quot;</span>)&#123;<br>            dataArray.<span class="hljs-built_in">erase</span>(dataArray.<span class="hljs-built_in">begin</span>());<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>        &#125;<br><br>        TreeNode* root = <span class="hljs-keyword">new</span> <span class="hljs-built_in">TreeNode</span>(<span class="hljs-built_in">stoi</span>(dataArray.<span class="hljs-built_in">front</span>()));<br>        dataArray.<span class="hljs-built_in">erase</span>(dataArray.<span class="hljs-built_in">begin</span>());<br>        root-&gt;left = <span class="hljs-built_in">rdeserialize</span>(dataArray);<br>        root-&gt;right = <span class="hljs-built_in">rdeserialize</span>(dataArray);<br><br>        <span class="hljs-keyword">return</span> root;<br>    &#125;<br><br>    <span class="hljs-comment">// Decodes your encoded data to tree.</span><br>    <span class="hljs-function">TreeNode* <span class="hljs-title">deserialize</span><span class="hljs-params">(string data)</span> </span>&#123;<br>        list&lt;string&gt;dataArray;<br>        string str;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c: data)&#123;<br>            <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;#&#x27;</span>)&#123;<br>                dataArray.<span class="hljs-built_in">push_back</span>(str);<br>                str.<span class="hljs-built_in">clear</span>();<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                str += c;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (!str.<span class="hljs-built_in">empty</span>())&#123;<br>            dataArray.<span class="hljs-built_in">push_back</span>(str);<br>            str.<span class="hljs-built_in">clear</span>();<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">rdeserialize</span>(dataArray);<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// Your Codec object will be instantiated and called as such:</span><br><span class="hljs-comment">// Codec ser, deser;</span><br><span class="hljs-comment">// TreeNode* ans = deser.deserialize(ser.serialize(root));</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul>
+<li>我们对每个节点只访问了一次，所以时间复杂度是o(n)。</li>
 </ul>
-</li>
-<li>p-tuning<ul>
-<li>思路：p-tuning方法和核心是使用可微的virtual token替换原来的discrete tokens，仅加入到输入层，病使用(BiLSTM+MLP)对virtual token进行编码学习；</li>
-<li>prompt tuning（hard prompt tuninig和soft prompt tuning两种）<ul>
-<li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断&#x2F;复制等操作，然后对这部分embedding进行训练；</li>
-<li>soft prompt则会在输入前面加一个random初始化的embedding（可以指定num_virtual_tokens），然后进行训练；</li>
-</ul>
-</li>
-<li>P-tuning v1<ul>
-<li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm&#x2F;mlp层，加速收敛；</li>
-</ul>
-</li>
-<li>Prefix tuning<ul>
-<li>在transformer Block里面，每一层都添加一个embedding（past_key_values），具体来说，由于transformer这种only-decode的模型，每次存在大量的重复计算，所以本来就有一个kv_cache的方法减小计算量，增加推理速度，那么我们的prifix_tuninig就是在每一层中以past_key_values的方式将prefix_embedding加进去了；</li>
-</ul>
-</li>
-<li>P-tuning v2<ul>
-<li>在prefix tuning的基础上，添加了一个lstm&#x2F;mlp层，最后也是分发到kv_cache上面；</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="2、介绍一下stable-diffusion"><a href="#2、介绍一下stable-diffusion" class="headerlink" title="2、介绍一下stable diffusion"></a>2、介绍一下stable diffusion</h3><ul>
-<li>首先，这里有一个<a target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-stable-diffusion/">大佬的文章</a>，包含youtube的视频;</li>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul>
+<li>我们递归会使用栈空间，渐进空间复杂度为o(n)。</li>
 </ul>
 
                 
@@ -333,7 +314,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/llm/" class="category-chain-item">llm</a>
+  <a href="/categories/leetcode-%E6%A0%91/" class="category-chain-item">leetcode-树</a>
   
   
 
@@ -353,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LLM面试问题集锦</div>
-      <div>http://yycsu.github.io/2024/11/24/llm面试问题集锦/</div>
+      <div>二叉树的序列化和反序列化</div>
+      <div>http://yycsu.github.io/2024/11/25/二叉树的序列化与反序列化/</div>
     </div>
     <div class="license-meta">
       
@@ -366,7 +347,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月24日</div>
+          <div>2024年11月25日</div>
         </div>
       
       
@@ -398,18 +379,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/25/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="二叉树的序列化和反序列化">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉树的序列化和反序列化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/24/%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E5%A4%A7%E5%AE%BD%E5%BA%A6/" title="二叉树最大宽度">
-                        <span class="hidden-mobile">二叉树最大宽度</span>
+                      <a href="/2024/11/24/llm%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/" title="LLM面试问题集锦">
+                        <span class="hidden-mobile">LLM面试问题集锦</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
