@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
 <meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-24T13:59:42.989Z">
+<meta property="article:modified_time" content="2024-11-25T10:19:31.475Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          379 字
+          1.6k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          4 分钟
+          14 分钟
         
       </span>
     
@@ -314,6 +314,98 @@
 </ul>
 <h3 id="2、介绍一下stable-diffusion"><a href="#2、介绍一下stable-diffusion" class="headerlink" title="2、介绍一下stable diffusion"></a>2、介绍一下stable diffusion</h3><ul>
 <li>首先，这里有一个<a target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-stable-diffusion/">大佬的文章</a>，包含youtube的视频;</li>
+<li>简单来说，stable diffusion总共包含三个主要组件，每个组件有独立的网络结构；</li>
+<li>clip text用于文本编码（77个token的embedding vector，维度768）；</li>
+<li>unet+scheduler在信息空间处理&#x2F;扩散信息。它的输入是文本embedding和一个噪声组成的多位数组，输出一个信息阵列；</li>
+<li>auto encoder decoder自编码器，输出图像矩阵。</li>
+</ul>
+<h3 id="3、为什么现在的大模型大部分都是decoder-only结构的"><a href="#3、为什么现在的大模型大部分都是decoder-only结构的" class="headerlink" title="3、为什么现在的大模型大部分都是decoder only结构的"></a>3、为什么现在的大模型大部分都是decoder only结构的</h3><ul>
+<li>大模型从结构上主要分为三种：<ul>
+<li>encoder only，Bert等模型，大规模无标签文本与训练+下游任务微调，具有强大的语言理解和表征能力；</li>
+<li>decoder only，GPT等模型，大规模无标签文本预训练，特定任务微调，具有很强生成能力和语言理解能力；</li>
+<li>encoder-decoder，T5等模型，应用于翻译、问答等任务；</li>
+</ul>
+</li>
+<li>具体原因：<ul>
+<li>训练效率和工程实现上具有优势；</li>
+<li>encoder中的双向注意力机制，会出现信息冗余，使得输入序列中存在大量重复或者相似的信息，从而降低矩阵的秩，削弱模型表达能力；</li>
+<li>encoder-decoder架构在某些场景下不错，可能是因为参数量增加了一倍；</li>
+</ul>
+</li>
+</ul>
+<h3 id="4、如何缓解LLMs复读机问题"><a href="#4、如何缓解LLMs复读机问题" class="headerlink" title="4、如何缓解LLMs复读机问题"></a>4、如何缓解LLMs复读机问题</h3><ul>
+<li>增加训练数据多样性，防止数据偏差和重复文本的问题；</li>
+<li>引入噪声，随机变换操作，增加文本多样性；</li>
+<li>温度系数调整，控制生成文本独创性和多样性；</li>
+<li>过处理和过滤，去重；</li>
+<li>beam搜索调整；</li>
+<li>人工干预和控制；</li>
+</ul>
+<h3 id="5、为什么transformer块使用LayerNorm而不是BatchNorm"><a href="#5、为什么transformer块使用LayerNorm而不是BatchNorm" class="headerlink" title="5、为什么transformer块使用LayerNorm而不是BatchNorm"></a>5、为什么transformer块使用LayerNorm而不是BatchNorm</h3><ul>
+<li>概念：<ul>
+<li>Batch Normalization是对同一批次样本的同一维度特征做归一化，Layer Normalization是对单个样本的所有维度特征做归一化；</li>
+<li>LN不依赖于batch的大小和输入sequence的长度，因此可以用于batchsize为1和RNN中sequence的normalize操作；</li>
+</ul>
+</li>
+<li>思路：<ul>
+<li>Batch Normalization在NLP中的问题：<ul>
+<li>CV领域，不同通道代表不同特征，BN通常对通道的维度起作用，合理；</li>
+<li>NLP领域，BN是在batch_size维度归一化，也就是不同样本的同一个特征归一化，不适用于词向量，因为词向量具有语义信息；</li>
+<li>Batch Normalization是通过缩放和偏移来实现归一化的，而缩放和偏移可能会破坏其语义结构；</li>
+</ul>
+</li>
+<li>LayerNorm 单独对一个样本的所有单词做缩放可以起到效果：<ul>
+<li>LN对每一个样本做特征缩放；</li>
+<li>LN对每个样本内部归一化，保持了词向量之间的相对关系和语义信息，不会因为不同样本的特征分布差异而影响训练效果；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6、Transformer为何使用多头注意力机制"><a href="#6、Transformer为何使用多头注意力机制" class="headerlink" title="6、Transformer为何使用多头注意力机制"></a>6、Transformer为何使用多头注意力机制</h3><ul>
+<li>多头保证了transformer可以注意到不同子空间的信息，捕捉到更加丰富的特征信息；</li>
+</ul>
+<h3 id="7、监督微调SFT后LLM表现下降的原因"><a href="#7、监督微调SFT后LLM表现下降的原因" class="headerlink" title="7、监督微调SFT后LLM表现下降的原因"></a>7、监督微调SFT后LLM表现下降的原因</h3><ul>
+<li>原因：<ul>
+<li>模型可能过度适应于微调数据，而忽视了与训练阶段学到的知识（灾难性遗忘）；</li>
+</ul>
+</li>
+<li>解决方法：<ul>
+<li>使用更小的学习率微调；</li>
+<li>正则化手段，例如权重衰减、早停等；</li>
+<li>elastic weight consolidation(EWC)，试图在微调过程中保留预训练阶段学习到的重要知识；</li>
+</ul>
+</li>
+</ul>
+<h3 id="8、微调阶段样本量规模增大导致的OOM错误"><a href="#8、微调阶段样本量规模增大导致的OOM错误" class="headerlink" title="8、微调阶段样本量规模增大导致的OOM错误"></a>8、微调阶段样本量规模增大导致的OOM错误</h3><ul>
+<li>原因：<ul>
+<li>全参数微调的显存需求取决于多个因素，包括模型大小，批次大小，序列长度，是否混合京都训练等；</li>
+</ul>
+</li>
+<li>解决办法：<ul>
+<li>减小批量大小；</li>
+<li>使用梯度累积；</li>
+<li>使用模型并行；</li>
+<li>使用checkpoint；</li>
+</ul>
+</li>
+</ul>
+<h3 id="9、连接文本和图像的CLIP架构简介"><a href="#9、连接文本和图像的CLIP架构简介" class="headerlink" title="9、连接文本和图像的CLIP架构简介"></a>9、连接文本和图像的CLIP架构简介</h3><ul>
+<li>CLIP，确定一系列query，然后通过搜索引擎搜索图像，最后通过50万条query，搜索得到4亿个图像文本对，将text decoder从文本中提取的语义特征和image decoder从图像中提取的语义特征进行匹配训练；</li>
+</ul>
+<h3 id="10、Attention计算复杂度以及如何改进"><a href="#10、Attention计算复杂度以及如何改进" class="headerlink" title="10、Attention计算复杂度以及如何改进"></a>10、Attention计算复杂度以及如何改进</h3><ul>
+<li>计算复杂度：<ul>
+<li>attention机制的计算复杂度主要来源于计算注意力权重的过程，标准自注意力机制中，计算复杂度为o(n^2*d)，其中n是序列长度，d是每个词向量的维度；</li>
+</ul>
+</li>
+<li>改进方案：<ul>
+<li>稀疏注意力，限制每个位置只关注一部分位置，复杂度降低至o(n<em>d</em>k)；</li>
+<li>低秩近似，使用低秩分解方法来近似注意力矩阵，减少计算量；</li>
+<li>分快处理，序列分块，每个块内计算注意力，块间传递信息，降低复杂度到o(m<em>b^2</em>d)；</li>
+<li>线性注意力，将注意力机制改成线性函数形式，例如核技巧将复杂度降低；</li>
+<li>混合模型，结合局部和全局注意力，减少计算开销。</li>
+</ul>
+</li>
 </ul>
 
                 
