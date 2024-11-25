@@ -231,6 +231,66 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/11/12/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" target="_self">
+          <img src="/img/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2.png" srcset="/img/loading.gif" lazyload alt="单词搜索">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/11/12/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" target="_self">
+          单词搜索
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/11/12/%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" target="_self">
+        <div>
+          思路 1、搜索问题，可以使用深度优先搜索解决，我们可以从任何一个位置开始，所以需要两层for循环遍历 2、dfs函数，我们需要传入board, row, col, index, visited, word 3、说到dfs就需要注意是否需要回溯，原则是这样的，如果我们每次做选择，可以走也可以不走，例如走迷宫，那么就需要回溯；而如果我们必须操作，例如求联通域面积，那么就不需要回溯；  代码123456
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-12 21:52" pubdate>
+              2024-11-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/leetcode-%E6%95%B0%E7%BB%84/" class="category-chain-item">leetcode-数组</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/11/12/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIII/" target="_self">
           <img src="/img/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIII.jpg" srcset="/img/loading.gif" lazyload alt="买卖股票的最佳时机III">
         </a>
@@ -736,66 +796,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2024-11-05 22:25" pubdate>
-              2024-11-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/leetcode-%E6%95%B0%E7%BB%84/" class="category-chain-item">leetcode-数组</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/11/05/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" target="_self">
-          <img src="/img/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97.jpg" srcset="/img/loading.gif" lazyload alt="下一个排列">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/11/05/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" target="_self">
-          下一个排列
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/11/05/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97/" target="_self">
-        <div>
-          思路 这道题是考察数组操作，主要是考察问题拆解； 我们从最末位寻找最长的降序列表，例如为pos； 然后对pos到末尾进行逆序，得到一个升序子列表； 这时候，从pos开始，只需要寻找第一个比nums[pos-1]大的值，再将其与nums[pos-1]交换，就可以得到下一个排列； 需要注意，假设pos&#x3D;0，意味着，整个列表已经是最大倒序列表了，这时候，直接列表翻转就是答案。  代码12345
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-05 22:15" pubdate>
               2024-11-05
             </time>
           </div>
