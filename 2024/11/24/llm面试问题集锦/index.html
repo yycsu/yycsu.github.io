@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
 <meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-27T13:09:21.322Z">
+<meta property="article:modified_time" content="2024-11-27T14:35:20.130Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          6.8k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          56 分钟
+          57 分钟
         
       </span>
     
@@ -571,7 +571,7 @@
 </ul>
 <h3 id="33、如何解决chatglm微调的灾难性遗忘问题"><a href="#33、如何解决chatglm微调的灾难性遗忘问题" class="headerlink" title="33、如何解决chatglm微调的灾难性遗忘问题"></a>33、如何解决chatglm微调的灾难性遗忘问题</h3><ul>
 <li>这里涉及到chatglm的一系列问题：<ul>
-<li>问题一、了解chatglm吗，主要参考了csdn上<a target="_blank" rel="noopener" href="https://blog.csdn.net/xian0710830114/article/details/138386170">这篇文章</a>？<ul>
+<li>问题一、了解chatglm吗，主要参考了csdn上<a target="_blank" rel="noopener" href="https://blog.csdn.net/xian0710830114/article/details/138386170">这篇文章</a>和bilibili上<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1M84y1y7yu/?spm_id_from=333.337.search-card.all.click&vd_source=0e2d47c0c67fb509b32ba3bfc5b73819">这个视频</a>，还有智源社区的<a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/8538">这个视频</a>？<ul>
 <li>chatglm是国产的优秀大模型，我们先从tokenizer来了解：<ul>
 <li>它使用sentencepiece包的BPE算法来分词，并生成词典，它有一个特殊分隔符用来区分一个词的开头，有助于区分连续的词汇；</li>
 <li>[gMASK]字符是用来表示从这里开始往下生成；</li>
@@ -579,7 +579,7 @@
 <li>可以设置编解码方式，包括删除空格，统一小写，转换回车，制表符，空格，虚拟空格等等；</li>
 </ul>
 </li>
-<li>位置编码：<ul>
+<li>位置编码（chatglm采用的是二维位置编码）：<ul>
 <li><p>绝对位置编码：</p>
 <ul>
 <li>概念：<ul>
@@ -700,6 +700,8 @@
 </ul>
 </li>
 <li>问题四、chatglm在训练时有什么特别的：<ul>
+<li>由于它是做单词填空任务的方式，所以你可以理解成它是有了解上下文的，例如x1, x2, [MASK4], x4, [MASK5]，显然，我在预测MASK4的时候，其实是有看到x4的（看到了他们的位置关系以及x4的具体embedding）；</li>
+<li>另外，预测的过程中打乱MASK4和MASK5的顺序也是可以的，这样就可以更好的学习到不同位置之间的相互关系。</li>
 <li>使用多轮对话进行微调了，同时使用数据增强技术（同义词替换，随机删除&#x2F;插入词语，对话数据扩充等）；</li>
 <li>对话系统的多轮对话设计了合理的机制，将对话历史信息合理地输入到模型中，例如将对话历史长度进行裁剪或者加权，在训练的过程中逐渐增加对话历史的长度，可以提升模型在多轮对话中的表现；</li>
 </ul>
