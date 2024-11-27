@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
 <meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-27T12:26:55.072Z">
+<meta property="article:modified_time" content="2024-11-27T13:09:21.322Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.9k 字
+          6.7k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          50 分钟
+          56 分钟
         
       </span>
     
@@ -682,6 +682,88 @@
 <li>ChatGLM的核心是GLMBlock，6B有28个，10B有48个；</li>
 <li>模型“知识”保存在FFN中，这里也是大模型最大的地方；</li>
 <li>实际使用中一定要设置一个最大长度，因为训练限制在什么长度决定了推理时能够支持的最大长度；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>问题二、chatglm有什么改进：<ul>
+<li>首先，将残差连接放在层归一化后面了，这样可以提高模型稳定性，有助于减少梯度消失或梯度爆炸的问题；</li>
+<li>其次，通过正弦线性层更好捕捉周期性和复杂模型，用于输出token预测；</li>
+<li>gelu替代relu，使得负值区域更加平滑，避免“神经元死亡”的问题；</li>
+</ul>
+</li>
+<li>问题三、chatglm与gpt有什么区别：<ul>
+<li>首先，从任务类型方面，gpt主要是专注于开放领域的文本生成任务，而ChatGLM专门为对话任务设计，优化了模型在多轮对话中的表现；</li>
+<li>其次，模型结构方面，gpt是标准的Transformer解码器堆叠，而ChatGLM引入了对历史信息更强的处理能力，使它在长对话中能够保持较高的逻辑一致性和语义连贯性；</li>
+<li>另外，生成策略上，GPT使用贪婪搜索、Beam Search或采样来生成多样化的样本，而ChatGLM更加注重复杂上下文跟踪和语义连贯性建模；</li>
+<li>对于上下文管理方面，它使用滑窗的方式，在多轮对话中选出最相关的上下文，加入预测；</li>
+</ul>
+</li>
+<li>问题四、chatglm在训练时有什么特别的：<ul>
+<li>使用多轮对话进行微调了，同时使用数据增强技术（同义词替换，随机删除&#x2F;插入词语，对话数据扩充等）；</li>
+<li>对话系统的多轮对话设计了合理的机制，将对话历史信息合理地输入到模型中，例如将对话历史长度进行裁剪或者加权，在训练的过程中逐渐增加对话历史的长度，可以提升模型在多轮对话中的表现；</li>
+</ul>
+</li>
+<li>问题五、chatglm的优化技术：<ul>
+<li>模型压缩与参数共享：<ul>
+<li>多个注意力头中共享部分计算（层内）；</li>
+<li>多个transformer层可能共享同一组参数（层间）；</li>
+<li>权重剪枝，量化，知识蒸馏；</li>
+</ul>
+</li>
+<li>混合精度训练（FP16+FP32）：</li>
+<li>高效推理（FP16推理+批处理推理）</li>
+<li>模型并行与分布式训练：<ul>
+<li>数据并行；</li>
+<li>模型并行；</li>
+<li>张量并行；</li>
+<li>分层并行；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>问题六、局限与挑战：<ul>
+<li>长序列生成一致性问题；<ul>
+<li>问题：<ul>
+<li>长文本中上下文丢失；</li>
+<li>生成质量的不稳定性；</li>
+</ul>
+</li>
+<li>解决：<ul>
+<li>增强上下文保持能力，例如引入外部记忆机制活着增加历史对话权重；</li>
+<li>生成策略调优，减少重复内容生成；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>模型规模与计算资源的平衡：<ul>
+<li>问题：<ul>
+<li>模型规模过大带来的计算资源需求：</li>
+<li>训练时间与能耗问题；</li>
+<li>推理延迟问题：</li>
+</ul>
+</li>
+<li>解决：<ul>
+<li>模型压缩和蒸馏；</li>
+<li>分布式训练和推理；</li>
+<li>混合精度训练和推理；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>模型偏差与伦理问题：<ul>
+<li>问题：<ul>
+<li>模型偏差问题，如社会偏见等；</li>
+<li>伦理与安全问题；</li>
+<li>用户隐私问题；</li>
+</ul>
+</li>
+<li>解决：<ul>
+<li>去偏与公平性算法；</li>
+<li>内容审查与过滤机制；</li>
+<li>隐私保护技术（差分隐私技术）；</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
