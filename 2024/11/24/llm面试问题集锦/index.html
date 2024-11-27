@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
 <meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-27T05:00:56.452Z">
+<meta property="article:modified_time" content="2024-11-27T12:26:55.072Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.9k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          39 分钟
+          50 分钟
         
       </span>
     
@@ -577,6 +577,111 @@
 <li>[gMASK]字符是用来表示从这里开始往下生成；</li>
 <li><sop> 和<eop>分别是开头和结尾字符；</li>
 <li>可以设置编解码方式，包括删除空格，统一小写，转换回车，制表符，空格，虚拟空格等等；</li>
+</ul>
+</li>
+<li>位置编码：<ul>
+<li><p>绝对位置编码：</p>
+<ul>
+<li>概念：<ul>
+<li>Transformer之前，NLP任务大多是以RNN，LSTM为代表的循环处理，一个一个token输入模型，模型本身是一种顺序结构，天生包含了token在序列中的位置信息，但是存在很大缺陷，包括遗忘、越靠后的token对结果影响越大，只能利用上文信息，计算时间复杂度高等；</li>
+<li>transformer出现之后，所有token一次性输入，解决了大部分问题，但是没办法知道token在句子中的相对和绝对位置信息，而这部分信息又至关重要；</li>
+<li>所以，transformer把位置信息加到词向量上帮助模型学习；</li>
+<li>基于正弦和余弦的编码，可以扩充到任意长度序列；而可学习位置编码要求固定输入长度，且可解释性差；</li>
+</ul>
+</li>
+<li>细节：<ul>
+<li>编码因子，1&#x2F; 10000^(2i&#x2F;d_model)，它允许位置编码在非常宽的频率范围内分布，从非常低频到非常高频，确保可以同时捕捉到长距离和短距离的依赖；</li>
+<li>对于位置1和位置2，由于它们属于高频区间，可能位置1在一个波峰，位置2就在下一个波谷了，所以两者差异很大，所以能捕捉到近距离关系；</li>
+<li>对于位置1和位置8，由于它们属于低频区间，位置1在一个波峰，位置8可能还在同一个波峰或者相邻波峰，差异不大，所以能捕捉到远距离关系；</li>
+<li>远程衰减性，绝对位置编码不能直接捕捉到远距离的相对关系，且两个token位置越远，相关性越低，导致模型对远距离token关注度不够；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>绝对位置编码，无法直接表征token的相关位置关系；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>相对位置编码：</p>
+<ul>
+<li>概念：<ul>
+<li>相对位置编码是在注意力机制中，引入一个相对位置偏置</li>
+<li>我们给每个相对位置k&#x3D; i- j分配一个向量表示，设置一个[-kmax, kmax]的范围，超出部分截断；</li>
+<li>自注意力计算中，我们会将Q * k^T变成(Q * k^T + Q * R^T)</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>相对位置编码，相对复杂，影响实际效率；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>旋转位置编码：</p>
+<ul>
+<li>概念：<ul>
+<li>通过旋转的方式，将位置信息编码到每个维度，从而使得模型能够捕捉到序列中元素的相对位置关系，例如chatGLM，LLaMA都采用了这种编码；</li>
+<li>rope在实现的过程中通过乘法操作融入位置信息，与模型中的Q和K深度融合，将旋转操作真正植入Attention机制的内部；</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>我们只需要在Q矩阵和K矩阵中乘上一个旋转矩阵，就可以实现旋转位置编码，能够将相对信息捕捉进去；</li>
+<li>实际实现的时候，工程上可以使用两次乘法和一次加法实现同样的效果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>整体流程：<ul>
+<li>迭代输出，每次生成一个token，最大长度512或者eos结束；</li>
+<li>一共有28个GLM_block；</li>
+<li>每次的输入一共有三个，input_ids, attention_mask和position_ids</li>
+</ul>
+</li>
+<li>模型结构：<ul>
+<li>GLM Block<ul>
+<li>LayerNorm，hidden_states经过LayerNorm，然后送入SelfAttention；</li>
+<li>selfAttention, 经过全连接层升维至12288（4096*3），然后拆分出Q,K,V；</li>
+<li>Q和K结合position_ids和block_position_ids，分别经过2d旋转位置编码重新编排；</li>
+<li>新的Q和K做内积进行Attention缩放，得到attention_scores，然后使用mask将attention_scores去掉（设置成一个很小的值），经过softmax处理，attention_scores是一个概率图，标记每个token和其他token的相关性；</li>
+<li>attention_scores与V做内积，即对V施加注意力机制，得到attention_output；</li>
+<li>attention_input和attention_output做残差想加，attention_input系数是sqrt(2*num_layers)，其中num_layers &#x3D; 28；</li>
+</ul>
+</li>
+<li>FFN Block<ul>
+<li>LayerNorm</li>
+<li>Linear层</li>
+<li>GELU层</li>
+<li>Linear层</li>
+<li>再进行加权求和，最终得到output输出；</li>
+</ul>
+</li>
+<li>Attention缩放<ul>
+<li>缩放因子1&#x2F;sqrt(d)，缩放的原因有几点：<ul>
+<li>如果softmax输入值过大，梯度可能趋近于0，导致梯度消失；</li>
+<li>注意力机制中，注意力分数会被归一化，layernorm之后QK符合标准，均值还是0，但是标准差变成了d，因为qi和ki都是来自N(0,1)的独立随机变量，方差都是1，所以矩阵Q和K的内积的方差为所有元素的方差之和，为了让std(QK) &#x3D; 1，除以sqrt(d)就可以了；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>残差系数<ul>
+<li>28个GLMBlock是串联的，每个GLMBlock输出都需要与输入做融合，所以有一个系数是有必要的；</li>
+</ul>
+</li>
+<li>FFN<ul>
+<li>这里是模型参数最密集的地方，有两个全连接层，基本可以认定，模型的知识是存在FFN中的；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>小结：<ul>
+<li>ChatGLM是根据Transformer的decoder改造的；</li>
+<li>使用旋转位置编码；</li>
+<li>缩放残差为sqrt(2 * num_layers);</li>
+<li>模型结构为LayerNorm + SelfAttention + LayerNorm + FFN；</li>
+<li>ChatGLM的核心是GLMBlock，6B有28个，10B有48个；</li>
+<li>模型“知识”保存在FFN中，这里也是大模型最大的地方；</li>
+<li>实际使用中一定要设置一个最大长度，因为训练限制在什么长度决定了推理时能够支持的最大长度；</li>
 </ul>
 </li>
 </ul>
