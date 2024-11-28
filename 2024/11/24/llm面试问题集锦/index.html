@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/llm.jpg">
 <meta property="article:published_time" content="2024-11-24T13:59:00.000Z">
-<meta property="article:modified_time" content="2024-11-27T14:56:32.205Z">
+<meta property="article:modified_time" content="2024-11-28T04:49:57.141Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/llm.jpg">
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k 字
+          9.1k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
         
-          58 分钟
+          76 分钟
         
       </span>
     
@@ -776,8 +776,185 @@
 </li>
 </ul>
 </li>
+<li>问题七、ChatGLM系列模型的技术报告关键信息有什么？<ul>
+<li></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<h3 id="34、GPT3、LLAMA的Layer-Normalization的区别是什么"><a href="#34、GPT3、LLAMA的Layer-Normalization的区别是什么" class="headerlink" title="34、GPT3、LLAMA的Layer Normalization的区别是什么"></a>34、GPT3、LLAMA的Layer Normalization的区别是什么</h3><ul>
+<li>GPT3：采用了Post-Layer Normalization的结构，即现进行自注意力或前馈神经网络的计算，然后进行Layer Normalization。这种结构有利于稳定训练过程，提高模型性能；</li>
+<li>LLAMA：采用了Pre-Layer Normalization的结构，即先进行Layer Normalization，然后进行自注意力或前馈网络的计算，这种结构有助于提高模型的泛化能力和鲁棒性；</li>
+<li>我们注意到，GPT3是将LayerNorm放在了（self_attention之后），而LLAMA以及ChatGLM是将LayerNorm放到了self_attention之前）；</li>
+</ul>
+<h3 id="35、MHA多头注意力和MQA多查询注意力的区别"><a href="#35、MHA多头注意力和MQA多查询注意力的区别" class="headerlink" title="35、MHA多头注意力和MQA多查询注意力的区别"></a>35、MHA多头注意力和MQA多查询注意力的区别</h3><ul>
+<li>MQA让所有头之间共享一份Key和Value矩阵，每个头只单独保留一份Qeury参数，从而大大减少Key和Value矩阵的参数量；</li>
+</ul>
+<h3 id="36、推理优化技术Flash-Attention的作用"><a href="#36、推理优化技术Flash-Attention的作用" class="headerlink" title="36、推理优化技术Flash Attention的作用"></a>36、推理优化技术Flash Attention的作用</h3><ul>
+<li>原理：<ul>
+<li>Flash Attention通过将输入序列分块处理，减少了整个序列全局操作的需求；<ul>
+<li>SRAM的空间小，但是频宽高，运算快；</li>
+<li>HBM空间大，但是频宽低，运算慢；</li>
+<li>计算方式的改变：<ul>
+<li>原方法：是Q，K拉到SRAM，然后将S写回HBM，又把S拉到SRAM，算出P写入HBM，再将P和V拉到SRAM，最后O写回HBM；</li>
+<li>新方法：QKV一次性load到SRAM中，计算完全过程，再把O写回HBM；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用优化算法计算注意力分数，减少内存占用；</li>
+<li>采用精确的数值方法避免计算中的溢出和下溢的问题；</li>
+</ul>
+</li>
+<li>共享张量核心和高效内存使用，以减少内存占用并提高计算速度；</li>
+</ul>
+<h3 id="37、ZeRO，零冗余优化器的三个阶段"><a href="#37、ZeRO，零冗余优化器的三个阶段" class="headerlink" title="37、ZeRO，零冗余优化器的三个阶段"></a>37、ZeRO，零冗余优化器的三个阶段</h3><ul>
+<li>将优化器状态（动量、二阶动量等）分割到不同设备上，减少内存占用；</li>
+<li>将模型参数分割到不同设备上（每个设备只复杂存储和更新一部分参数）；</li>
+<li>将梯度分割到不同设备上（每个设备只需要计算和存储一部分梯度），实现最大的内存节省；</li>
+<li>核心思想是，把每个模型的参数、梯度、优化器状态分别平均分给所有GPU，当计算需要用到其他卡的内容时，通过GPU之间的通讯传输，用通讯换内存；</li>
+</ul>
+<h3 id="38、对Qwen-VL模型的输入，图像是如何处理的，他们经过视觉编码器和适配器后得到了怎样的特征序列"><a href="#38、对Qwen-VL模型的输入，图像是如何处理的，他们经过视觉编码器和适配器后得到了怎样的特征序列" class="headerlink" title="38、对Qwen-VL模型的输入，图像是如何处理的，他们经过视觉编码器和适配器后得到了怎样的特征序列"></a>38、对Qwen-VL模型的输入，图像是如何处理的，他们经过视觉编码器和适配器后得到了怎样的特征序列</h3><ul>
+<li>简介：<ul>
+<li>整体上是将图片经过vit的输入embedding之后和文本一起送入LLM进行训练；</li>
+<li>模型vit的输入会和一个Learnable Query先经过cross attention，然后送入大模型；</li>
+</ul>
+</li>
+<li>详细：<ul>
+<li>视觉编码器:<ul>
+<li>图像首先通过视觉编码器（通常是一个卷积神经网络，如ViT或类似架构）进行特征提取。</li>
+<li>视觉编码器将图像转换为一系列视觉特征，这些特征通常是二维的特征图。</li>
+</ul>
+</li>
+<li>适配器：<ul>
+<li>适配器模块用于将视觉编码器输出的特征图转换为适合与语言模型结合的特征序列。</li>
+<li>适配器将二维特征图展平成一维特征序列，并可能进行进一步的线性变换或降维处理，以匹配语言模型的输入格式。</li>
+</ul>
+</li>
+<li>举个例子，假设我们有10个query向量，shape是10<em>512， 同样我们通过vit得到图像的特征向量为14</em>14*512，那么cross_attention之后，得到10 * 512的输出，每个问题对应一个特征向量，learnable_query其实是随机的，在训练的过程中进行学习；</li>
+</ul>
+</li>
+</ul>
+<h3 id="39、LangChain通常被用作-粘粘剂-，将构造LLM应用所需各个模块连接在一起，介绍下其核心模块："><a href="#39、LangChain通常被用作-粘粘剂-，将构造LLM应用所需各个模块连接在一起，介绍下其核心模块：" class="headerlink" title="39、LangChain通常被用作[粘粘剂]，将构造LLM应用所需各个模块连接在一起，介绍下其核心模块："></a>39、LangChain通常被用作[粘粘剂]，将构造LLM应用所需各个模块连接在一起，介绍下其核心模块：</h3><ul>
+<li>Models，模型；</li>
+<li>Propmts，提示词工程；</li>
+<li>Memory，记忆，用来保存模型交互时的上下文状态；</li>
+<li>Indexes，索引，用来结构化文档，以便和模型交互，包括文档加载程序、向量存储器、文本分割器和检索器等；</li>
+<li>Agents，代理，决定模型采取哪些行动；</li>
+<li>Chains，链，一系列对各种组件的调用。</li>
+</ul>
+<h3 id="40、Stable-Diffusion-XL是一个二阶段的级联扩散模型，简述流程（非重点，暂时跳过）"><a href="#40、Stable-Diffusion-XL是一个二阶段的级联扩散模型，简述流程（非重点，暂时跳过）" class="headerlink" title="40、Stable Diffusion XL是一个二阶段的级联扩散模型，简述流程（非重点，暂时跳过）"></a>40、Stable Diffusion XL是一个二阶段的级联扩散模型，简述流程（非重点，暂时跳过）</h3><h3 id="41、Mamba对RNN做了哪些改变，从而在GPU上算的较快（非重点，暂时跳过）"><a href="#41、Mamba对RNN做了哪些改变，从而在GPU上算的较快（非重点，暂时跳过）" class="headerlink" title="41、Mamba对RNN做了哪些改变，从而在GPU上算的较快（非重点，暂时跳过）"></a>41、Mamba对RNN做了哪些改变，从而在GPU上算的较快（非重点，暂时跳过）</h3><h3 id="42、多头注意力机制MHA是Transformer模型中的核心组件，KV-Cache和GQA优化的核心思想"><a href="#42、多头注意力机制MHA是Transformer模型中的核心组件，KV-Cache和GQA优化的核心思想" class="headerlink" title="42、多头注意力机制MHA是Transformer模型中的核心组件，KV Cache和GQA优化的核心思想"></a>42、多头注意力机制MHA是Transformer模型中的核心组件，KV Cache和GQA优化的核心思想</h3><ul>
+<li><p>KV Cache：</p>
+<ul>
+<li>自回归生成模型中使用的优化技术，通过缓存历史输入的Key和Value来减少重复计算，从而提高推理效率；</li>
+<li>KV Cache的显存占用会随着输入序列长度和输出序列长度的增长而线性增常，因此需要对其进行优化以适应更长的序列；</li>
+</ul>
+</li>
+<li><p>GQA：</p>
+<ul>
+<li>介于MHA和MQA之间的折中方案，将查询头(Query Heads)分组，每组共享一个键头（Key Head）和一个值头（Value Head）；</li>
+<li>既保留了多头注意力的一定表达能力，又通过减少内存访问压力加速推理速度；</li>
+<li>GQA可以通过对已经训练好的模型进行微调来实现，使用mean pooling来生成共享的KV，这种方法在保持推理速度的同时也能保持较高的模型质量；</li>
+</ul>
+</li>
+</ul>
+<h3 id="43、100B以上的大模型预训练中出现loss-spike的原因及解决方案"><a href="#43、100B以上的大模型预训练中出现loss-spike的原因及解决方案" class="headerlink" title="43、100B以上的大模型预训练中出现loss spike的原因及解决方案"></a>43、100B以上的大模型预训练中出现loss spike的原因及解决方案</h3><ul>
+<li>表现：<ul>
+<li>loss spink指loss突然大幅度上涨，且无法drop back down；</li>
+</ul>
+</li>
+<li>原因：<ul>
+<li>论文解释了预训练使用Adam优化器是导致这个现象出现的重要原因之一（梯度变化以及更新参数的变化并不能特别好的满足独立性的条件，最后导致更新参数震荡，loss spike及不收敛）；</li>
+</ul>
+</li>
+<li>解决办法：<ul>
+<li>PaLM和GLM130b之前的解决办法是回滚到最近的checkpoint，更换训练样本；</li>
+<li>减小learning_rate；</li>
+<li>减小“防除零参数”，或者直接将它设置为0；</li>
+<li>浅层梯度直接乘以缩放系数来减小浅层梯度更新；</li>
+</ul>
+</li>
+</ul>
+<h3 id="44、模型问题：多模态大模型常采用MLP作为视觉映射器，将视觉特征到token一对一地映射到文本空间-如何压缩视觉token量以提升效率？（非重点，暂时跳过）"><a href="#44、模型问题：多模态大模型常采用MLP作为视觉映射器，将视觉特征到token一对一地映射到文本空间-如何压缩视觉token量以提升效率？（非重点，暂时跳过）" class="headerlink" title="44、模型问题：多模态大模型常采用MLP作为视觉映射器，将视觉特征到token一对一地映射到文本空间, 如何压缩视觉token量以提升效率？（非重点，暂时跳过）"></a>44、模型问题：多模态大模型常采用MLP作为视觉映射器，将视觉特征到token一对一地映射到文本空间, 如何压缩视觉token量以提升效率？（非重点，暂时跳过）</h3><h3 id="45、数据准备：在处理对话及语料数据时，针对数据去重用了哪些算法，针对语料训练阶段的数据增强做了哪些？"><a href="#45、数据准备：在处理对话及语料数据时，针对数据去重用了哪些算法，针对语料训练阶段的数据增强做了哪些？" class="headerlink" title="45、数据准备：在处理对话及语料数据时，针对数据去重用了哪些算法，针对语料训练阶段的数据增强做了哪些？"></a>45、数据准备：在处理对话及语料数据时，针对数据去重用了哪些算法，针对语料训练阶段的数据增强做了哪些？</h3><ul>
+<li>主要参考了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/712494477">这篇文章</a></li>
+<li>数据去重：<ul>
+<li>URL去重：<ul>
+<li>最新页面URL链接；</li>
+</ul>
+</li>
+<li>文档去重：<ul>
+<li>MinHash算法；</li>
+</ul>
+</li>
+<li>行&#x2F;句子去重；<ul>
+<li>ccNet算法；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>语料清洗：<ul>
+<li>去重，个人身份信息过滤（PII），成人内容过滤，文本提取，质量分类，语言分类；</li>
+</ul>
+</li>
+<li>语料清洗的算法：<ul>
+<li>过滤：<ul>
+<li>N-Gram覆盖率</li>
+<li>敏感词过滤</li>
+<li>KL散度近似语料过滤</li>
+</ul>
+</li>
+<li>文本提取<ul>
+<li>图片 alt属性提取</li>
+<li>HTML alt数字公式提取</li>
+<li>代码内容提取</li>
+</ul>
+</li>
+<li>质量分类<ul>
+<li>fasttext</li>
+<li>wiki引用识别</li>
+<li>Roberta分类</li>
+<li>Llama2分类</li>
+<li>DistilRoberta分类</li>
+</ul>
+</li>
+<li>语言分类：<ul>
+<li>LLaMa2分类</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高质量语料数据增强方式<ul>
+<li>知识分类重采样（实现各类知识分类比例偏差小）<ul>
+<li>基于任务的文本标记；</li>
+<li>基于标记重采样文本（降采样艺术，娱乐分类文本）；</li>
+</ul>
+</li>
+<li>数据混配(50%通识，25%数学和推理，17%编码，8%多语种)<ul>
+<li>应用Scaling Law，采样数据集上做大量实验，推测大数据集效果，选定配比，再进行关键基准测试集效果评定；</li>
+</ul>
+</li>
+<li>公式代码退火</li>
+</ul>
+</li>
+</ul>
+<h3 id="46、数据准备：LLaMa3-1的微调进行了几轮，奖励模型的训练数据和SFT的训练数据用了什么？"><a href="#46、数据准备：LLaMa3-1的微调进行了几轮，奖励模型的训练数据和SFT的训练数据用了什么？" class="headerlink" title="46、数据准备：LLaMa3.1的微调进行了几轮，奖励模型的训练数据和SFT的训练数据用了什么？"></a>46、数据准备：LLaMa3.1的微调进行了几轮，奖励模型的训练数据和SFT的训练数据用了什么？</h3><ul>
+<li>6轮微调迭代，每次通过人类反馈收集新的训练数据；</li>
+<li>奖励模型训练数据<ul>
+<li>步骤一：通过交互式反馈得到 数据1：被拒绝的回复。和 数据2：被选择的数据。 再在数据2的基础上， 进一步人工编辑改进最佳答案得到 数据3： 编辑过的。</li>
+<li>步骤二： 通过混配提示词和多个回复， 进一步提升训练效率，但不会降低准确度。</li>
+</ul>
+</li>
+</ul>
+<p>步骤二： 通过混配提示词和多个回复， 进一步提升训练效率，但不会降低准确度。</p>
+<ul>
+<li>SFT用了近2千万的SFT案例，一半英文，逻辑推理占1&#x2F;5，代码不到1&#x2F;6；</li>
+</ul>
+<h3 id="47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）"><a href="#47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）" class="headerlink" title="47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）"></a>47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）</h3><h3 id="48、模型推理：现有技术范式下，广义幻觉？"><a href="#48、模型推理：现有技术范式下，广义幻觉？" class="headerlink" title="48、模型推理：现有技术范式下，广义幻觉？"></a>48、模型推理：现有技术范式下，广义幻觉？</h3><ul>
+<li>广义幻觉只能靠外挂RAG，function_call的方式解决，狭义幻觉靠调参；</li>
+</ul>
+<h3 id="49、模型推理：LLM推理时Decode阶段一次迭代一个token，内存耗时更多，有什么加速办法"><a href="#49、模型推理：LLM推理时Decode阶段一次迭代一个token，内存耗时更多，有什么加速办法" class="headerlink" title="49、模型推理：LLM推理时Decode阶段一次迭代一个token，内存耗时更多，有什么加速办法"></a>49、模型推理：LLM推理时Decode阶段一次迭代一个token，内存耗时更多，有什么加速办法</h3><ul>
+<li>看<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/699776257">文章</a>吧</li>
 </ul>
 
                 
