@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>强化学习(3)</title>
+    <link href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/"/>
+    <url>/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="贝尔曼公式">贝尔曼公式</h2><ul><li>贝尔曼公式<ul><li>State Values（从某个状态出发，得到的average return）<ul><li>不同状态出发得到的return，依赖于从其他状态出发所得到的return；</li><li>Bootstrapping是一种从自己出发，不断迭代得到结果的算法；</li><li>我们可以将贝尔曼公式写成矩阵形式的，方便后续求解；</li><li>对多个trajectory求return然后求平均值就得到了state values；</li><li>求解方法<ul><li>给定policy，我们可以列出贝尔曼公式；</li><li>求解贝尔曼公式，我们可以得到对应的state values；</li><li>而求解过程中，如果使用求逆计算，则在状态空间较大的时候，计算量会非常大，所以我们会使用迭代的方法计算求解；</li></ul></li></ul></li><li>Action Values（从某个状态出发，采用某种行动，得到的 return）<ul><li>我们如果已经知道所有状态的state values，就可以求出所有的actionvalues；</li><li>同样，如果我们已知一个状态下所有的actionvalues，求平均就可以得到state values；</li></ul></li><li>贝尔曼公式刻画了statevalues之间的关系，也给了我们一个工具（求解贝尔曼可以求出statevalues）。</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>强化学习</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习(2)</title>
     <link href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E8%AF%BE/"/>
     <url>/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E8%AF%BE/</url>

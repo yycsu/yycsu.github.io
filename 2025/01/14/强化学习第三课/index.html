@@ -19,23 +19,23 @@
   <meta name="author" content="yvanyao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="强化学习基本概念  State（状态）  agent相对环境的状态，在grid_world中就是对应的坐标，如果是机器人那么应该包含位置、速度、加速度等多种信息；  Action&#x2F;Decision（行动）  每个状态有一系列可以采取的行动；  State transition and probability（状态转移）  当采取某个行动时，agent可以从一个state移动到另外一个state，这">
+    <meta name="description" content="贝尔曼公式  贝尔曼公式  State Values（从某个状态出发，得到的average return）  不同状态出发得到的return，依赖于从其他状态出发所得到的return； Bootstrapping是一种从自己出发，不断迭代得到结果的算法； 我们可以将贝尔曼公式写成矩阵形式的，方便后续求解； 对多个trajectory求return然后求平均值就得到了state values； 求解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="强化学习(2)">
-<meta property="og:url" content="http://yycsu.github.io/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E8%AF%BE/index.html">
+<meta property="og:title" content="强化学习(3)">
+<meta property="og:url" content="http://yycsu.github.io/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/index.html">
 <meta property="og:site_name" content="yvanyao&#39;s personal blog">
-<meta property="og:description" content="强化学习基本概念  State（状态）  agent相对环境的状态，在grid_world中就是对应的坐标，如果是机器人那么应该包含位置、速度、加速度等多种信息；  Action&#x2F;Decision（行动）  每个状态有一系列可以采取的行动；  State transition and probability（状态转移）  当采取某个行动时，agent可以从一个state移动到另外一个state，这">
+<meta property="og:description" content="贝尔曼公式  贝尔曼公式  State Values（从某个状态出发，得到的average return）  不同状态出发得到的return，依赖于从其他状态出发所得到的return； Bootstrapping是一种从自己出发，不断迭代得到结果的算法； 我们可以将贝尔曼公式写成矩阵形式的，方便后续求解； 对多个trajectory求return然后求平均值就得到了state values； 求解">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yycsu.github.io/img/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.jpg">
-<meta property="article:published_time" content="2025-01-14T10:12:00.000Z">
-<meta property="article:modified_time" content="2025-01-14T10:13:22.424Z">
+<meta property="article:published_time" content="2025-01-14T13:08:00.000Z">
+<meta property="article:modified_time" content="2025-01-14T13:18:39.159Z">
 <meta property="article:author" content="yvanyao">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yycsu.github.io/img/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.jpg">
   
   
   
-  <title>强化学习(2) - yvanyao&#39;s personal blog</title>
+  <title>强化学习(3) - yvanyao&#39;s personal blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="强化学习(2)"></span>
+            <span id="subtitle" data-typed-text="强化学习(3)"></span>
           
         </div>
 
@@ -216,7 +216,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-14 18:12" pubdate>
+        <time datetime="2025-01-14 21:08" pubdate>
           2025年1月14日 晚上
         </time>
       </span>
@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          256 字
+          288 字
         
       </span>
     
@@ -276,70 +276,38 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">强化学习(2)</h1>
+            <h1 id="seo-header">强化学习(3)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="强化学习基本概念">强化学习基本概念</h2>
+                <h2 id="贝尔曼公式">贝尔曼公式</h2>
 <ul>
-<li>State（状态）
+<li>贝尔曼公式
 <ul>
-<li>agent相对环境的状态，在grid_world中就是对应的坐标，如果是机器人那么应该包含位置、速度、加速度等多种信息；</li>
+<li>State Values（从某个状态出发，得到的average return）
+<ul>
+<li>不同状态出发得到的return，依赖于从其他状态出发所得到的return；</li>
+<li>Bootstrapping是一种从自己出发，不断迭代得到结果的算法；</li>
+<li>我们可以将贝尔曼公式写成矩阵形式的，方便后续求解；</li>
+<li>对多个trajectory求return然后求平均值就得到了state values；</li>
+<li>求解方法
+<ul>
+<li>给定policy，我们可以列出贝尔曼公式；</li>
+<li>求解贝尔曼公式，我们可以得到对应的state values；</li>
+<li>而求解过程中，如果使用求逆计算，则在状态空间较大的时候，计算量会非常大，所以我们会使用迭代的方法计算求解；</li>
 </ul></li>
-<li>Action/Decision（行动）
-<ul>
-<li>每个状态有一系列可以采取的行动；</li>
 </ul></li>
-<li>State transition and probability（状态转移）
+<li>Action Values（从某个状态出发，采用某种行动，得到的 return）
 <ul>
-<li>当采取某个行动时，agent可以从一个state移动到另外一个state，这个过程就是state
-transition；</li>
+<li>我们如果已经知道所有状态的state values，就可以求出所有的action
+values；</li>
+<li>同样，如果我们已知一个状态下所有的action
+values，求平均就可以得到state values；</li>
 </ul></li>
-<li>Policy（策略）
-<ul>
-<li>告知agent在某个state下应该采取什么行动</li>
-</ul></li>
-<li>Reward and probability（奖励）
-<ul>
-<li>agent采取动作之后得到的一个具体数值，可以是正数/负数，是对动作的奖励或者惩罚；</li>
-</ul></li>
-<li>Trajectory（弹道/链路）
-<ul>
-<li>state-action-reward chain</li>
-</ul></li>
-<li>Return
-<ul>
-<li>沿着一条trajectory得到所有的reward累加起来</li>
-</ul></li>
-<li>Discounted return
-<ul>
-<li>为了防止Return结果发散，我们设置了一个r参数(discount
-rate)，这样就可以将结果收敛到一个比较确定的值；</li>
-</ul></li>
-<li>Episode
-<ul>
-<li>terminal_state与之相对应，the resulting trajectory is called an
-episode（trial）；</li>
-<li>一个episodic task通常是有限步的，又些永远交互下去的叫做continuing
-task；</li>
-<li>episode task 可以转换成continuing task；</li>
-</ul></li>
-<li>Markov decision process
-<ul>
-<li>Sets
-<ul>
-<li>States</li>
-<li>Action</li>
-<li>Reward</li>
-</ul></li>
-<li>Probability distribution
-<ul>
-<li>State transition probability</li>
-<li>Reward probability</li>
-</ul></li>
-<li>Policy</li>
-<li>Markov property: memoryless property</li>
+<li>贝尔曼公式刻画了state
+values之间的关系，也给了我们一个工具（求解贝尔曼可以求出state
+values）。</li>
 </ul></li>
 </ul>
 
@@ -380,8 +348,8 @@ task；</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>强化学习(2)</div>
-      <div>http://yycsu.github.io/2025/01/14/强化学习第二课/</div>
+      <div>强化学习(3)</div>
+      <div>http://yycsu.github.io/2025/01/14/强化学习第三课/</div>
     </div>
     <div class="license-meta">
       
@@ -425,18 +393,12 @@ task；</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/" title="强化学习(3)">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">强化学习(3)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E8%AF%BE/" title="强化学习(1)">
-                        <span class="hidden-mobile">强化学习(1)</span>
+                      <a href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%BA%8C%E8%AF%BE/" title="强化学习(2)">
+                        <span class="hidden-mobile">强化学习(2)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
