@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.1k 字
+          9k 字
         
       </span>
     
@@ -293,12 +293,12 @@
 <li>p-tuning<ul>
 <li>思路：p-tuning方法和核心是使用可微的virtual token替换原来的discrete tokens，仅加入到输入层，病使用(BiLSTM+MLP)对virtual token进行编码学习；</li>
 <li>prompt tuning（hard prompt tuninig和soft prompt tuning两种）<ul>
-<li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断&#x2F;复制等操作，然后对这部分embedding进行训练；</li>
+<li>hard prompt是指我们在输入前添加一个设定好的自然语言，它会从原始词表embedding中取出对应的prompt embedding,并且这里也可以设置num_virtual_tokens，会根据这个参数进行截断/复制等操作，然后对这部分embedding进行训练；</li>
 <li>soft prompt则会在输入前面加一个random初始化的embedding（可以指定num_virtual_tokens），然后进行训练；</li>
 </ul>
 </li>
 <li>P-tuning v1<ul>
-<li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm&#x2F;mlp层，加速收敛；</li>
+<li>在soft prompt基础（num_virtual_tokens生成embedding）上添加了一个lstm/mlp层，加速收敛；</li>
 </ul>
 </li>
 <li>Prefix tuning<ul>
@@ -306,7 +306,7 @@
 </ul>
 </li>
 <li>P-tuning v2<ul>
-<li>在prefix tuning的基础上，添加了一个lstm&#x2F;mlp层，最后也是分发到kv_cache上面；</li>
+<li>在prefix tuning的基础上，添加了一个lstm/mlp层，最后也是分发到kv_cache上面；</li>
 </ul>
 </li>
 </ul>
@@ -316,7 +316,7 @@
 <li>首先，这里有一个<a target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-stable-diffusion/">大佬的文章</a>，包含youtube的视频;</li>
 <li>简单来说，stable diffusion总共包含三个主要组件，每个组件有独立的网络结构；</li>
 <li>clip text用于文本编码（77个token的embedding vector，维度768）；</li>
-<li>unet+scheduler在信息空间处理&#x2F;扩散信息。它的输入是文本embedding和一个噪声组成的多位数组，输出一个信息阵列；</li>
+<li>unet+scheduler在信息空间处理/扩散信息。它的输入是文本embedding和一个噪声组成的多位数组，输出一个信息阵列；</li>
 <li>auto encoder decoder自编码器，输出图像矩阵。</li>
 </ul>
 <h3 id="3、为什么现在的大模型大部分都是decoder-only结构的"><a href="#3、为什么现在的大模型大部分都是decoder-only结构的" class="headerlink" title="3、为什么现在的大模型大部分都是decoder only结构的"></a>3、为什么现在的大模型大部分都是decoder only结构的</h3><ul>
@@ -399,12 +399,12 @@
 </ul>
 </li>
 <li>整个复杂度计算过程（以一个512tokens长度的文本三分类任务为例）：<ul>
-<li>首先，我们需要将输入文本切成token，并且变成512*d，output_dim &#x3D; 512 * d；</li>
-<li>第一步，Q &#x3D; W_Q * x , K &#x3D; W_K * x, V &#x3D; W_V * x，这里时间复杂度为o(512*d^2), output_dim &#x3D; 512 * d;</li>
-<li>第二步，Q * K_T，这里时间复杂度为o(512^2 * d), output_dim &#x3D; 512 * 512;</li>
-<li>第三步，softmax，时间复杂度为o(512^2), output_dim &#x3D; 512 * 512；</li>
-<li>第四步，乘以V矩阵，时间复杂度为o(512^2 * d), output_dim &#x3D; 512 * d;</li>
-<li>第五步，最后线性变换，时间复杂度为o(512 * d * d_out), output_dim &#x3D; 512 * d_out;</li>
+<li>首先，我们需要将输入文本切成token，并且变成512<em>d，output_dim = 512 </em> d；</li>
+<li>第一步，Q = W_Q <em> x , K = W_K </em> x, V = W_V <em> x，这里时间复杂度为o(512</em>d^2), output_dim = 512 * d;</li>
+<li>第二步，Q <em> K_T，这里时间复杂度为o(512^2 </em> d), output_dim = 512 * 512;</li>
+<li>第三步，softmax，时间复杂度为o(512^2), output_dim = 512 * 512；</li>
+<li>第四步，乘以V矩阵，时间复杂度为o(512^2 <em> d), output_dim = 512 </em> d;</li>
+<li>第五步，最后线性变换，时间复杂度为o(512 <em> d </em> d_out), output_dim = 512 * d_out;</li>
 </ul>
 </li>
 <li>改进方案：<ul>
@@ -449,9 +449,9 @@
 <li>该阶段使模型具备理解语言模式的能力，尚未具备理解指令或者问题的能力；</li>
 </ul>
 </li>
-<li>SFT&#x2F;instruct tuninig（监督微调或者指令微调）<ul>
+<li>SFT/instruct tuninig（监督微调或者指令微调）<ul>
 <li>模型将用户信息作为输入，通过最小化其预测与提供的响应之间的差异来学习生成响应；</li>
-<li>该阶段是模型从仅仅理解语言模式到理解并且&#x3D;响应指令的转变；</li>
+<li>该阶段是模型从仅仅理解语言模式到理解并且=响应指令的转变；</li>
 </ul>
 </li>
 <li>RLHF（强化学习）<ul>
@@ -463,7 +463,7 @@
 <li>将文本分成小块，应该是tokenizer将文本分成token_ids的意思</li>
 </ul>
 <h3 id="16、lora训练初始化为什么要为零"><a href="#16、lora训练初始化为什么要为零" class="headerlink" title="16、lora训练初始化为什么要为零"></a>16、lora训练初始化为什么要为零</h3><ul>
-<li>因为A * B &#x3D; w’，其中A随机初始化，B全零，这样初始化之后的w’为0，不会影响到原来的权重，也就是我们从原来的权重开始训练。</li>
+<li>因为A * B = w’，其中A随机初始化，B全零，这样初始化之后的w’为0，不会影响到原来的权重，也就是我们从原来的权重开始训练。</li>
 </ul>
 <h3 id="17、stable-diffusion里是如何用文本来控制生成"><a href="#17、stable-diffusion里是如何用文本来控制生成" class="headerlink" title="17、stable diffusion里是如何用文本来控制生成"></a>17、stable diffusion里是如何用文本来控制生成</h3><ul>
 <li>stable diffusion是一种潜在扩散模型，主要通过自动编码器(VAE)，U-Net以及文本编辑器三个核心组件完成用文本来控制生成的图像；</li>
@@ -502,19 +502,19 @@
 <h3 id="22、训练通用目标检测器常会使用多源图像进行训练，如何处理新类别歧视（非重点，暂时跳过）"><a href="#22、训练通用目标检测器常会使用多源图像进行训练，如何处理新类别歧视（非重点，暂时跳过）" class="headerlink" title="22、训练通用目标检测器常会使用多源图像进行训练，如何处理新类别歧视（非重点，暂时跳过）"></a>22、训练通用目标检测器常会使用多源图像进行训练，如何处理新类别歧视（非重点，暂时跳过）</h3><h3 id="23、举例说明强化学习如何发挥作用（较难，暂时跳过）"><a href="#23、举例说明强化学习如何发挥作用（较难，暂时跳过）" class="headerlink" title="23、举例说明强化学习如何发挥作用（较难，暂时跳过）"></a>23、举例说明强化学习如何发挥作用（较难，暂时跳过）</h3><h3 id="24、如何理解强化学习中的奖励最大化（较难，暂时跳过）"><a href="#24、如何理解强化学习中的奖励最大化（较难，暂时跳过）" class="headerlink" title="24、如何理解强化学习中的奖励最大化（较难，暂时跳过）"></a>24、如何理解强化学习中的奖励最大化（较难，暂时跳过）</h3><h3 id="25、如何提升大预言模型的prompt泛化性"><a href="#25、如何提升大预言模型的prompt泛化性" class="headerlink" title="25、如何提升大预言模型的prompt泛化性"></a>25、如何提升大预言模型的prompt泛化性</h3><ul>
 <li>使用多个不同的prompt，增加模型学习的样本多样性；</li>
 <li>通过在prompt中添加随机噪声或变换，增加数据集的丰富性，从而提高模型的泛化能力；</li>
-<li>迁移学习&#x2F;元学习等方法，从先前学习的任务中提取知识<ul>
+<li>迁移学习/元学习等方法，从先前学习的任务中提取知识<ul>
 <li>注意，这里以元学习为例，它是有一个全局模型，然后每次在不同任务上训练，得到loss后累加，然后用整体的loss进行反传，并且每次训练的时候每个子任务都是从全局模型中加载参数；</li>
 </ul>
 </li>
 </ul>
 <h3 id="26、instruction-Tuning和Prompt-Tuning方法的区别"><a href="#26、instruction-Tuning和Prompt-Tuning方法的区别" class="headerlink" title="26、instruction Tuning和Prompt Tuning方法的区别"></a>26、instruction Tuning和Prompt Tuning方法的区别</h3><ul>
 <li>Prompt tuninig：<ul>
-<li>针对每个任务，单独生成prompt模版（hard prompt&#x2F;soft prompt），然后每个任务上进行full-shot微调和评估，预训练模型时freeze住的，prompt激发补全能力，类似做language model任务；</li>
+<li>针对每个任务，单独生成prompt模版（hard prompt/soft prompt），然后每个任务上进行full-shot微调和评估，预训练模型时freeze住的，prompt激发补全能力，类似做language model任务；</li>
 <li>只调整提示部分的参数，适合需要快速适应不同任务的场景；</li>
 </ul>
 </li>
 <li>instruction Tuning：<ul>
-<li>每个任务，单独生成instruction（hard token），若干个full-shot任务上微调，然后在具体任务上进行评估，预训练模型参数时unfreeze的，instruction tuninig激发语言模型的理解能力，通过给出更明显的指令&#x2F;指示，让模型去理解并作出正确的action；</li>
+<li>每个任务，单独生成instruction（hard token），若干个full-shot任务上微调，然后在具体任务上进行评估，预训练模型参数时unfreeze的，instruction tuninig激发语言模型的理解能力，通过给出更明显的指令/指示，让模型去理解并作出正确的action；</li>
 <li>调整整个模型的参数，适合增强模型对广泛任务的理解和执行能力；</li>
 </ul>
 </li>
@@ -536,7 +536,7 @@
 </ul>
 <h3 id="28、transformer中的Attention计算复杂度以及如何改进"><a href="#28、transformer中的Attention计算复杂度以及如何改进" class="headerlink" title="28、transformer中的Attention计算复杂度以及如何改进"></a>28、transformer中的Attention计算复杂度以及如何改进</h3><ul>
 <li>局部注意力机制，只计算输入序列中与当前位置相关的子序列的交互，降低复杂度；</li>
-<li>近似的方式，例如随机化&#x2F;采样的方式近似计算<ul>
+<li>近似的方式，例如随机化/采样的方式近似计算<ul>
 <li>Reformer模型，使用LSH将元素哈希到多个桶里面，桶内元素是相似的，在每个桶中计算注意力，可以大大降低计算量；</li>
 <li>Reformer特别适合处理长文本或者其他需要高效序列建模的任务；</li>
 </ul>
@@ -559,8 +559,8 @@
 <li>具体体现如下：<ul>
 <li>缺乏帮助，即模型有时候不会遵循用户明确指令；</li>
 <li>幻觉，模型编造不存在或者错误的事实；</li>
-<li>缺乏可解释性，人类很难理解模型如何得出特定决策&#x2F;预测；</li>
-<li>生成有偏见&#x2F;有毒的输出，主要是训练数据中包含这些的时候，可能在输出中重现；</li>
+<li>缺乏可解释性，人类很难理解模型如何得出特定决策/预测；</li>
+<li>生成有偏见/有毒的输出，主要是训练数据中包含这些的时候，可能在输出中重现；</li>
 </ul>
 </li>
 </ul>
@@ -570,8 +570,10 @@
 <li>我们只在这个小的词组内进行softmax计算，这样减少了计算词汇表概率分布所需计算量，通过自适应softmax，可以更有效地训练和运行大预言模型，从而实现更快的实验和开发；</li>
 </ul>
 <h3 id="33、如何解决chatglm微调的灾难性遗忘问题"><a href="#33、如何解决chatglm微调的灾难性遗忘问题" class="headerlink" title="33、如何解决chatglm微调的灾难性遗忘问题"></a>33、如何解决chatglm微调的灾难性遗忘问题</h3><ul>
-<li>这里涉及到chatglm的一系列问题：<ul>
-<li>问题一、了解chatglm吗，主要参考了csdn上<a target="_blank" rel="noopener" href="https://blog.csdn.net/xian0710830114/article/details/138386170">这篇文章</a>和bilibili上<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1M84y1y7yu/?spm_id_from=333.337.search-card.all.click&vd_source=0e2d47c0c67fb509b32ba3bfc5b73819">这个视频</a>，还有智源社区的<a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/8538">这个视频</a>？<ul>
+<li><p>这里涉及到chatglm的一系列问题：</p>
+<ul>
+<li><p>问题一、了解chatglm吗，主要参考了csdn上<a target="_blank" rel="noopener" href="https://blog.csdn.net/xian0710830114/article/details/138386170">这篇文章</a>和bilibili上<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1M84y1y7yu/?spm_id_from=333.337.search-card.all.click&amp;vd_source=0e2d47c0c67fb509b32ba3bfc5b73819">这个视频</a>，还有智源社区的<a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/8538">这个视频</a>？</p>
+<ul>
 <li>chatglm是国产的优秀大模型，我们先从tokenizer来了解：<ul>
 <li>它使用sentencepiece包的BPE算法来分词，并生成词典，它有一个特殊分隔符用来区分一个词的开头，有助于区分连续的词汇；</li>
 <li>[gMASK]字符是用来表示从这里开始往下生成；</li>
@@ -579,7 +581,8 @@
 <li>可以设置编解码方式，包括删除空格，统一小写，转换回车，制表符，空格，虚拟空格等等；</li>
 </ul>
 </li>
-<li>位置编码（chatglm采用的是二维位置编码）：<ul>
+<li><p>位置编码（chatglm采用的是二维位置编码）：</p>
+<ul>
 <li><p>绝对位置编码：</p>
 <ul>
 <li>概念：<ul>
@@ -590,7 +593,7 @@
 </ul>
 </li>
 <li>细节：<ul>
-<li>编码因子，1&#x2F; 10000^(2i&#x2F;d_model)，它允许位置编码在非常宽的频率范围内分布，从非常低频到非常高频，确保可以同时捕捉到长距离和短距离的依赖；</li>
+<li>编码因子，1/ 10000^(2i/d_model)，它允许位置编码在非常宽的频率范围内分布，从非常低频到非常高频，确保可以同时捕捉到长距离和短距离的依赖；</li>
 <li>对于位置1和位置2，由于它们属于高频区间，可能位置1在一个波峰，位置2就在下一个波谷了，所以两者差异很大，所以能捕捉到近距离关系；</li>
 <li>对于位置1和位置8，由于它们属于低频区间，位置1在一个波峰，位置8可能还在同一个波峰或者相邻波峰，差异不大，所以能捕捉到远距离关系；</li>
 <li>远程衰减性，绝对位置编码不能直接捕捉到远距离的相对关系，且两个token位置越远，相关性越低，导致模型对远距离token关注度不够；</li>
@@ -606,8 +609,8 @@
 <ul>
 <li>概念：<ul>
 <li>相对位置编码是在注意力机制中，引入一个相对位置偏置</li>
-<li>我们给每个相对位置k&#x3D; i- j分配一个向量表示，设置一个[-kmax, kmax]的范围，超出部分截断；</li>
-<li>自注意力计算中，我们会将Q * k^T变成(Q * k^T + Q * R^T)</li>
+<li>我们给每个相对位置k= i- j分配一个向量表示，设置一个[-kmax, kmax]的范围，超出部分截断；</li>
+<li>自注意力计算中，我们会将Q <em> k^T变成(Q </em> k^T + Q * R^T)</li>
 </ul>
 </li>
 <li>缺点：<ul>
@@ -616,8 +619,7 @@
 </li>
 </ul>
 </li>
-<li><p>旋转位置编码：</p>
-<ul>
+<li>旋转位置编码：<ul>
 <li>概念：<ul>
 <li>通过旋转的方式，将位置信息编码到每个维度，从而使得模型能够捕捉到序列中元素的相对位置关系，例如chatGLM，LLaMA都采用了这种编码；</li>
 <li>rope在实现的过程中通过乘法操作融入位置信息，与模型中的Q和K深度融合，将旋转操作真正植入Attention机制的内部；</li>
@@ -645,7 +647,7 @@
 <li>Q和K结合position_ids和block_position_ids，分别经过2d旋转位置编码重新编排；</li>
 <li>新的Q和K做内积进行Attention缩放，得到attention_scores，然后使用mask将attention_scores去掉（设置成一个很小的值），经过softmax处理，attention_scores是一个概率图，标记每个token和其他token的相关性；</li>
 <li>attention_scores与V做内积，即对V施加注意力机制，得到attention_output；</li>
-<li>attention_input和attention_output做残差想加，attention_input系数是sqrt(2*num_layers)，其中num_layers &#x3D; 28；</li>
+<li>attention_input和attention_output做残差想加，attention_input系数是sqrt(2*num_layers)，其中num_layers = 28；</li>
 </ul>
 </li>
 <li>FFN Block<ul>
@@ -657,9 +659,9 @@
 </ul>
 </li>
 <li>Attention缩放<ul>
-<li>缩放因子1&#x2F;sqrt(d)，缩放的原因有几点：<ul>
+<li>缩放因子1/sqrt(d)，缩放的原因有几点：<ul>
 <li>如果softmax输入值过大，梯度可能趋近于0，导致梯度消失；</li>
-<li>注意力机制中，注意力分数会被归一化，layernorm之后QK符合标准，均值还是0，但是标准差变成了d，因为qi和ki都是来自N(0,1)的独立随机变量，方差都是1，所以矩阵Q和K的内积的方差为所有元素的方差之和，为了让std(QK) &#x3D; 1，除以sqrt(d)就可以了；</li>
+<li>注意力机制中，注意力分数会被归一化，layernorm之后QK符合标准，均值还是0，但是标准差变成了d，因为qi和ki都是来自N(0,1)的独立随机变量，方差都是1，所以矩阵Q和K的内积的方差为所有元素的方差之和，为了让std(QK) = 1，除以sqrt(d)就可以了；</li>
 </ul>
 </li>
 </ul>
@@ -708,7 +710,7 @@
 </li>
 <li>由于它是做单词填空任务的方式，所以你可以理解成它是有了解上下文的，例如x1, x2, [MASK4], x4, [MASK5]，显然，我在预测MASK4的时候，其实是有看到x4的（看到了他们的位置关系以及x4的具体embedding）；</li>
 <li>另外，预测的过程中打乱MASK4和MASK5的顺序也是可以的，这样就可以更好的学习到不同位置之间的相互关系。</li>
-<li>使用多轮对话进行微调了，同时使用数据增强技术（同义词替换，随机删除&#x2F;插入词语，对话数据扩充等）；</li>
+<li>使用多轮对话进行微调了，同时使用数据增强技术（同义词替换，随机删除/插入词语，对话数据扩充等）；</li>
 <li>对话系统的多轮对话设计了合理的机制，将对话历史信息合理地输入到模型中，例如将对话历史长度进行裁剪或者加权，在训练的过程中逐渐增加对话历史的长度，可以提升模型在多轮对话中的表现；</li>
 </ul>
 </li>
@@ -832,7 +834,7 @@
 <li>适配器将二维特征图展平成一维特征序列，并可能进行进一步的线性变换或降维处理，以匹配语言模型的输入格式。</li>
 </ul>
 </li>
-<li>举个例子，假设我们有10个query向量，shape是10<em>512， 同样我们通过vit得到图像的特征向量为14</em>14*512，那么cross_attention之后，得到10 * 512的输出，每个问题对应一个特征向量，learnable_query其实是随机的，在训练的过程中进行学习；</li>
+<li>举个例子，假设我们有10个query向量，shape是10<em>512， 同样我们通过vit得到图像的特征向量为14</em>14<em>512，那么cross_attention之后，得到10 </em> 512的输出，每个问题对应一个特征向量，learnable_query其实是随机的，在训练的过程中进行学习；</li>
 </ul>
 </li>
 </ul>
@@ -887,7 +889,7 @@
 <li>MinHash算法；</li>
 </ul>
 </li>
-<li>行&#x2F;句子去重；<ul>
+<li>行/句子去重；<ul>
 <li>ccNet算法；</li>
 </ul>
 </li>
@@ -948,7 +950,7 @@
 </ul>
 <p>步骤二： 通过混配提示词和多个回复， 进一步提升训练效率，但不会降低准确度。</p>
 <ul>
-<li>SFT用了近2千万的SFT案例，一半英文，逻辑推理占1&#x2F;5，代码不到1&#x2F;6；</li>
+<li>SFT用了近2千万的SFT案例，一半英文，逻辑推理占1/5，代码不到1/6；</li>
 </ul>
 <h3 id="47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）"><a href="#47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）" class="headerlink" title="47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）"></a>47、模型问题：VLM模型中高分辨率图像降低token数的几种方式？（非重点，暂时跳过）</h3><h3 id="48、模型推理：现有技术范式下，广义幻觉？"><a href="#48、模型推理：现有技术范式下，广义幻觉？" class="headerlink" title="48、模型推理：现有技术范式下，广义幻觉？"></a>48、模型推理：现有技术范式下，广义幻觉？</h3><ul>
 <li>广义幻觉只能靠外挂RAG，function_call的方式解决，狭义幻觉靠调参；</li>
