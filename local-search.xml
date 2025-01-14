@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>强化学习(4)</title>
+    <link href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/"/>
+    <url>/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="贝尔曼最优公式">贝尔曼最优公式</h2><ul><li>贝尔曼最优公式<ul><li>Optimal Policy<ul><li>Vpai*(s) &gt;=Vpai(s)，意味着找到一个最优的策略，在所有的状态下的状态值都是最优的；</li><li>根据贝尔曼公式，V = max_pai(r_pai + sigma * P_pai *V)，我们有两个未知数；</li><li>这时候我们通过另外的知识Contraction mappingtheorem知道，符合这个条件的方程可以用迭代的方法求解，而贝尔曼最优公式就符合这个条件；</li></ul></li><li>调整参数<ul><li>我们可以调整sigma参数，会使得具体结果更受前面步骤的影响/后面步骤的影响，sigma越小受前面影响越大；</li><li>另外我们调整garma_forbidden，也会使得最优策略收到影响；</li><li>即使进入空白格子没有惩罚，仍然策略上会趋向于更近的路径，而避免走一些弯路。</li></ul></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>强化学习</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强化学习(3)</title>
     <link href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/"/>
     <url>/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%89%E8%AF%BE/</url>
