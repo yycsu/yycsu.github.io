@@ -367,7 +367,7 @@
       
       <a class="index-excerpt " href="/2024/11/19/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/" target="_self">
         <div>
-          思路 这道题居然是一道动态规划的题目 1、我们初始化一个二维数组，dp[i][j]，含义是到下标为(i,j)位置一共有dp[i][j]种走法； 2、首先，dp[i][0]和dp[0][j]显然都为1，因为只有一种走法； 3、其次，递推公式是dp[i][j] = dp[i-1][j] + dp[i][j-1]; 4、最后，我们从上到下，从左到右遍历即可  代码12345678910111213141
+          思路 这道题居然是一道动态规划的题目 1、我们初始化一个二维数组，dp[i][j]，含义是到下标为(i,j)位置一共有dp[i][j]种走法； 2、首先，dp[i][0]和dp[0][j]显然都为1，因为只有一种走法； 3、其次，递推公式是dp[i][j] &#x3D; dp[i-1][j] + dp[i][j-1]; 4、最后，我们从上到下，从左到右遍历即可  代码123456789101112
         </div>
       </a>
 
@@ -427,7 +427,7 @@
       
       <a class="index-excerpt " href="/2024/11/18/%E5%AF%BB%E6%89%BE%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC/" target="_self">
         <div>
-          思路 旋转数组可以使用二分法来做 1、如果二分之后nums[left] &lt; nums[right]表明，left到right都是有序区间，只需要在左侧元素和当前最小值中间取更小者即可； 2、否则的话，继续判断middle和left的关系，如果middle大于等于left，那么应该将left = middle+1; 3、如果middle小于left，应该将right = middle； 4、整
+          思路 旋转数组可以使用二分法来做 1、如果二分之后nums[left] &lt; nums[right]表明，left到right都是有序区间，只需要在左侧元素和当前最小值中间取更小者即可； 2、否则的话，继续判断middle和left的关系，如果middle大于等于left，那么应该将left &#x3D; middle+1; 3、如果middle小于left，应该将right &#x3D; m
         </div>
       </a>
 
