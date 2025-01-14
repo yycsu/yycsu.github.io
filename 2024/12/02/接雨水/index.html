@@ -287,7 +287,6 @@
 <li>如果计算出来的值小于0，则不能接水</li>
 </ul>
 <h3 id="代码-方法一"><a href="#代码-方法一" class="headerlink" title="代码(方法一)"></a>代码(方法一)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 思路居然异常简单</span><br>    <span class="hljs-comment">// 1、每个位置能接的水应该等于min(left_max - height[i], right_max - height[i])</span><br>    <span class="hljs-comment">// 2、如果计算出来的值小于0，则不能接水</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> result = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left_max</span><span class="hljs-params">(height.size(), <span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">right_max</span><span class="hljs-params">(height.size(), <span class="hljs-number">0</span>)</span></span>;<br><br>        left_max[<span class="hljs-number">0</span>] = height[<span class="hljs-number">0</span>];<br>        right_max[height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>] = height[height.<span class="hljs-built_in">size</span>() <span class="hljs-number">-1</span>];<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; height.<span class="hljs-built_in">size</span>(); i++)&#123;<br>            left_max[i] = <span class="hljs-built_in">max</span>(left_max[i<span class="hljs-number">-1</span>], height[i]);<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = height.<span class="hljs-built_in">size</span>() <span class="hljs-number">-2</span>; j &gt;= <span class="hljs-number">0</span>; j--)&#123;<br>            right_max[j] = <span class="hljs-built_in">max</span>(right_max[j<span class="hljs-number">+1</span>], height[j]);<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">0</span>; k &lt; height.<span class="hljs-built_in">size</span>(); k++)&#123;<br>            <span class="hljs-type">int</span> val = <span class="hljs-built_in">min</span>(left_max[k], right_max[k]) - height[k];<br>            <span class="hljs-keyword">if</span> (val &gt; <span class="hljs-number">0</span>)&#123;<br>                result += val;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <h3 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h3><ul>
 <li>由于我们每次需要考虑左侧最大值和右侧最大值来判断当前位置可以储存的最多雨水量；</li>
 <li>显然，我们可以使用空间复杂度为o(1)来解决这个问题，因为我们可以使用两个变量left_max和right_max来分别代表左侧最大值和右侧最大值；</li>
@@ -297,11 +296,8 @@
 <li>4、最终，当我们的左右指针相遇的时候，遍历完成，返回最终结果即可；</li>
 </ul>
 <h3 id="代码-方法二"><a href="#代码-方法二" class="headerlink" title="代码(方法二)"></a>代码(方法二)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = height.<span class="hljs-built_in">size</span>();<br><br>        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> right = n <span class="hljs-number">-1</span>;<br><br>        <span class="hljs-type">int</span> left_max = height[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">int</span> right_max = height[n<span class="hljs-number">-1</span>];<br>        <span class="hljs-type">int</span> result = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>            left_max = <span class="hljs-built_in">max</span>(left_max, height[left]);<br>            right_max = <span class="hljs-built_in">max</span>(right_max, height[right]);<br>            <span class="hljs-keyword">if</span> (left_max &lt; right_max)&#123;<br>                result += left_max - height[left];<br>                left++;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                result += right_max - height[right];<br>                right--;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul>
-<li>方法一和方法二的时间复杂度都为O(n)。</li>
-</ul>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul>
+<li>方法一和方法二的时间复杂度都为O(n)。<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3></li>
 <li>方法一的空间复杂度为o(n)，方法二的空间复杂度为o(1)。</li>
 </ul>
 
@@ -455,6 +451,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -647,6 +649,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

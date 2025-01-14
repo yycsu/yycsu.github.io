@@ -228,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          375 字
+          374 字
         
       </span>
     
@@ -286,14 +286,11 @@
 <li>1、首先，我们会计算一个前缀和数组sum_array，方便后续查询；</li>
 <li>2、其次，假设当前子数组的左侧边界为left，右侧边界为right，那么子数组的和可以用sum_array[right] - sum_array[left]表示，如果它正好等于k，则找到结果；</li>
 <li>3、这个找的动作，我们可以使用unordered_map完成，时间复杂度更低，意味着我们需要将前缀和与出现次数保存在一个unordered_map中；</li>
-<li>4、这样，我们就知道prefix_sum&#x3D;target的前缀数组有多少个</li>
+<li>4、这样，我们就知道prefix_sum=target的前缀数组有多少个</li>
 </ul>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        <span class="hljs-comment">// 使用一个unordered_map保存前缀和的数值及出现频次</span><br>        unordered_map&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; umap;<br>        <br>        <span class="hljs-comment">// 如果啥都不加，则默认前缀和为0</span><br>        umap[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br><br>        <span class="hljs-comment">// 用一个变量记录结果</span><br>        <span class="hljs-type">int</span> result = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-comment">// 开始遍历数组，并统计数值</span><br>        <span class="hljs-type">int</span> prefix_sum = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i =<span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i++)&#123;<br>            <span class="hljs-comment">// 先计算prefix_sum</span><br>            prefix_sum += nums[i];<br><br>            <span class="hljs-comment">// 寻找需要的子数组和</span><br>            <span class="hljs-keyword">auto</span> item = umap.<span class="hljs-built_in">find</span>(prefix_sum - k);<br>            <br>            <span class="hljs-comment">// 如果找到了，则更新结果</span><br>            <span class="hljs-keyword">if</span> (item != umap.<span class="hljs-built_in">end</span>())&#123;<br>                result += item-&gt;second;<br>            &#125;<br><br>            umap[prefix_sum]++;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul>
-<li>我们只遍历了一遍，所以时间复杂度应该是o(n)，中间使用哈希表查询时间复杂度为O(1)，综合下来时间复杂度应该是o(1)。</li>
-</ul>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><ul>
+<li>我们只遍历了一遍，所以时间复杂度应该是o(n)，中间使用哈希表查询时间复杂度为O(1)，综合下来时间复杂度应该是o(1)。<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3></li>
 <li>我们新增了一个变量unordered_map，所以空间复杂度为o(n)。</li>
 </ul>
 
@@ -447,6 +444,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -639,6 +642,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
