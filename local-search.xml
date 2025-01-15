@@ -5,10 +5,10 @@
   
   <entry>
     <title>强化学习(4)</title>
-    <link href="/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/"/>
-    <url>/2025/01/14/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/</url>
+    <link href="/2025/01/15/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/"/>
+    <url>/2025/01/15/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/</url>
     
-    <content type="html"><![CDATA[<h2 id="贝尔曼最优公式">贝尔曼最优公式</h2><ul><li>贝尔曼最优公式<ul><li>Optimal Policy<ul><li>Vpai*(s) &gt;=Vpai(s)，意味着找到一个最优的策略，在所有的状态下的状态值都是最优的；</li><li>根据贝尔曼公式，V = max_pai(r_pai + sigma * P_pai *V)，我们有两个未知数；</li><li>这时候我们通过另外的知识Contraction mappingtheorem知道，符合这个条件的方程可以用迭代的方法求解，而贝尔曼最优公式就符合这个条件；</li></ul></li><li>调整参数<ul><li>我们可以调整sigma参数，会使得具体结果更受前面步骤的影响/后面步骤的影响，sigma越小受前面影响越大；</li><li>另外我们调整garma_forbidden，也会使得最优策略收到影响；</li><li>即使进入空白格子没有惩罚，仍然策略上会趋向于更近的路径，而避免走一些弯路。</li></ul></li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="值迭代和策略迭代">值迭代和策略迭代</h2><ul><li>值迭代<ul><li>值迭代会初始化一个v0；</li><li>然后，第一步是根据已有的v0这个值，通过greedypolicy，计算出最优策略；</li><li>第二步是计算一步，通过已有策略和v_k计算得到v_(k+1)；</li><li>最后，循环迭代整个过程；</li></ul></li><li>策略迭代<ul><li>策略迭代会初始化一个策略π_0；</li><li>然后，第一步是已知策略，我们通过贝尔曼最优公式求解出V_pai_k；</li><li>第二步是计算出最优策略；</li><li>最后，循环迭代整个过程；</li></ul></li><li>truncated policy iteration算法：<ul><li>这个算法是介于policy iteration和valueiteration之间的，它在迭代的过程是不会像policyiteration一样无限次数迭代，而是有一个确定性的最大迭代次数或者有一个迭代优化的目标；</li></ul></li></ul>]]></content>
     
     
     <categories>
