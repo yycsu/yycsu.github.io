@@ -5,6 +5,25 @@
   
   <entry>
     <title>强化学习(4)</title>
+    <link href="/2025/01/15/aigc%E8%83%BD%E5%8A%9B%E9%9C%80%E6%B1%82%E6%95%B4%E7%90%86/"/>
+    <url>/2025/01/15/aigc%E8%83%BD%E5%8A%9B%E9%9C%80%E6%B1%82%E6%95%B4%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="值迭代和策略迭代">值迭代和策略迭代</h2><ul><li>值迭代<ul><li>值迭代会初始化一个v0；</li><li>然后，第一步是根据已有的v0这个值，通过greedypolicy，计算出最优策略；</li><li>第二步是计算一步，通过已有策略和v_k计算得到v_(k+1)；</li><li>最后，循环迭代整个过程；</li></ul></li><li>策略迭代<ul><li>策略迭代会初始化一个策略π_0；</li><li>然后，第一步是已知策略，我们通过贝尔曼最优公式求解出V_pai_k；</li><li>第二步是计算出最优策略；</li><li>最后，循环迭代整个过程；</li></ul></li><li>truncated policy iteration算法：<ul><li>这个算法是介于policy iteration和valueiteration之间的，它在迭代的过程是不会像policyiteration一样无限次数迭代，而是有一个确定性的最大迭代次数或者有一个迭代优化的目标；</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>强化学习</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>强化学习(4)</title>
     <link href="/2025/01/15/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/"/>
     <url>/2025/01/15/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%AC%E5%9B%9B%E8%AF%BE/</url>
     
